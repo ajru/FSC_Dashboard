@@ -1,0 +1,6 @@
+C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_Entity\bin\Debug\FSC_Dashboard_Entity.dll
+C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_Entity\bin\Debug\FSC_Dashboard_Entity.pdb
+C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_Entity\obj\Debug\FSC_Dashboard_Entity.csprojAssemblyReference.cache
+C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_Entity\obj\Debug\FSC_Dashboard_Entity.csproj.CoreCompileInputs.cache
+C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_Entity\obj\Debug\FSC_Dashboard_Entity.dll
+C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_Entity\obj\Debug\FSC_Dashboard_Entity.pdb
