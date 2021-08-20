@@ -23,6 +23,7 @@ body {
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
+  color:white;
 }
 /* Layout */
 .wrapper {
@@ -88,7 +89,7 @@ body {
 }
 .content-wrapper {
   min-height: calc(100vh - 101px);
-  background-color: #ecf0f5;
+  /*background-color: #ecf0f5;*/
   z-index: 800;
 }
 @media (max-width: 767px) {
@@ -164,7 +165,8 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Source Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
 }
 /* General Links */
 a {
@@ -352,6 +354,7 @@ a:focus {
 .content-header > h1 {
   margin: 0;
   font-size: 24px;
+  color:white;
 }
 .content-header > h1 > small {
   font-size: 15px;
