@@ -40,6 +40,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- Google Font -->
+    <!-- jQuery 3 -->
+    @*<script src="~/content/theme/bower_components/jquery/dist/jquery.min.js"></script>*@
+    <script src="~/Content/theme/bower_components/jquery/dist/jquery.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src=" ~/content/theme/bower_components/jquery-ui/jquery-ui.min.js"></script>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini sidebar-collapse fixed">
@@ -314,22 +320,19 @@
         </div>
         <!-- /.content-wrapper -->
         @*<footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Version</b> 1.0.0
-            </div>
-            <strong>Copyright &copy; 2021-2022 <a href="https://raymach.in">Raymach</a>.</strong> All rights
-            reserved.
-        </footer>*@
+                <div class="pull-right hidden-xs">
+                    <b>Version</b> 1.0.0
+                </div>
+                <strong>Copyright &copy; 2021-2022 <a href="https://raymach.in">Raymach</a>.</strong> All rights
+                reserved.
+            </footer>*@
 
         <!-- Add the sidebar's background. This div must be placed
              immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div>
     <!-- ./wrapper -->
-    <!-- jQuery 3 -->
-    <script src="~/content/theme/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src=" ~/content/theme/bower_components/jquery-ui/jquery-ui.min.js"></script>
+ 
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button);
@@ -364,12 +367,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="~/content/theme/dist/js/demo.js"></script>
 
-    <script src="~/Scripts/charts/highcharts.js"></script>
-    <script src="~/Scripts/charts/data.js"></script>
-    <script src="~/Scripts/charts/drilldown.js"></script>
-    <script src="~/Scripts/charts/export-data.js"></script>
-    <script src="~/Scripts/charts/exporting.js"></script>
-    <script src="~/Scripts/charts/accessibility.js"></script>
+ 
 
     @RenderSection("scripts", required: false)
 

@@ -1,24 +1,35 @@
 ﻿
 <style>
-    .chart-area{
-        border:1px dotted white;
-        height:250px
+    .chart-area {
+        border: 1px dotted white;
+        height: 250px
     }
+
     .flight-sec-right {
         border: 1px dotted white;
         height: 250px;
         width: 100%;
         margin-left: -20px;
     }
-</style> 
 
- <!-- Content Header (Page header) -->
+    .highcharts-figure .chart-container {
+        width: 100px;
+        /*height: 250px;*/
+        float: left;
+    }
+
+    #bar_flightTypeAnlysis {
+        height: 250px;
+    }
+</style>
+
+<!-- Content Header (Page header) -->
 <section class="content-header">
     <center>
         <p>
-            Flight Section          
+            Flight Section
         </p>
-    </center> 
+    </center>
 </section>
 
 <!-- Main content -->
@@ -27,13 +38,15 @@
     <div class="col-lg-8">
         <div class="flight-sec-left">
             <div class="col-md-4 chart-area">
+                <div id="gauge_DomasticDepart" class="chart-container"></div>
 
             </div>
             <div class="col-md-4 chart-area">
+                <div id="gauge_InternationalDepart" class="chart-container"></div>
 
             </div>
             <div class="col-md-4 chart-area">
-
+                <div id="bar_flightTypeAnlysis" class="chart-container"></div>
             </div>
 
         </div>
@@ -46,3 +59,13 @@
     </div>
 </div>
 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<script src="~/Scripts/pages/Dashboard/Dashboard.js"></script>
