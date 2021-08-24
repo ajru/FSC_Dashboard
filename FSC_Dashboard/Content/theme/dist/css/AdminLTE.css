@@ -88,9 +88,11 @@ body {
   }
 }
 .content-wrapper {
-  min-height: calc(100vh - 101px);
-  /*background-color: #ecf0f5;*/
-  z-index: 800;
+    min-height: calc(100vh - 101px);
+    /*background-color: #ecf0f5;*/
+    /*background-color: #1a2226;*/
+    background-color: #000000;
+    z-index: 800;
 }
 @media (max-width: 767px) {
   .content-wrapper {

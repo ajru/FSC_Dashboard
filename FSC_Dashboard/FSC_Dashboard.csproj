@@ -7362,6 +7362,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pages\Dashboard\Dashboard.js" />
     <Content Include="Scripts\pages\login\login.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -7379,6 +7380,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\User\login.cshtml" />
+    <Content Include="Views\Dashboard\Onload_Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\OTP_Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Load_Factor_Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Planned_Vs_Actual_Block_Hours_Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Aircraft_Utilization_Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Disruption_Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
