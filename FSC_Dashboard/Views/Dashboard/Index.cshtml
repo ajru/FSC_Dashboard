@@ -1,33 +1,66 @@
 ﻿
 <style>
     .chart-area {
-        border: 1px dotted white;
+        border: 1px dotted #545454;
         height: 250px
     }
 
+    .dotted-border {
+        border: 1px dotted #545454;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
     .content-header {
-        border: 1px dotted white;
+        border: 1px dotted #545454;
         width: 100%;
         margin-left: -10px;
         margin-right: 10px;
     }
 
     .flight-sec-right {
-        border: 1px dotted white;
+        border: 1px dotted #545454;
         height: 250px;
         width: 100%;
         margin-left: -10px;
     }
 
     .flight-sec-left {
-        border: 1px dotted white;
+        /*border: 1px dotted white;*/
         height: 250px;
         width: 100%;
         /*margin-left: -20px;*/
     }
 
+    .otp-title-sec-right {
+        border: 1px dotted #545454;
+        height: 25px;
+        width: 100%;
+        margin-left: -10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .otp-title-sec-left {
+        border: 1px dotted #545454;
+        height: 25px;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        /*margin-left: -20px;*/
+    }
+
+    .otp-title-sec-center {
+        border: 1px dotted #545454;
+        height: 25px;
+        width: 100%;
+        /*margin-left: -10px;*/
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
     .flight-sec-center {
-        border: 1px dotted white;
+        border: 1px dotted #545454      ;
         height: 250px;
         width: 100%;
         /*margin-left: -20px;*/
@@ -42,17 +75,25 @@
     #bar_flightTypeAnlysis {
         height: 250px;
     }
+
+    #bar_otp_metro {
+        height: 250px;
+    }
 </style>
-</br>
+
 <!-- Content Header (Page header) -->
-<section class="content-header">
-    <center>
-        <p>
-            Flight Section
-        </p>
-    </center>
-</section>
-</br>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="otp-title-sec-left">
+            <center>
+                <p>
+                    Flight Section
+                </p>
+            </center>
+        </div>
+    </div>  
+</div>
+
 <!-- Main content -->
 
 <div class="row">
@@ -82,63 +123,96 @@
         </div>
     </div>
 </div>
-</br>
-<section class="content-header">
-    <center>
-        <p>
-            Flight Section
-        </p>
-    </center>
-</section>
-</br>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="otp-title-sec-left">
+            <center>
+                <p>
+                    OTP Section
+                </p>
+            </center>
+        </div>
+     </div>
+    <div class="col-lg-4">
+        <div class="otp-title-sec-right">
+            <center>
+                <p>
+                    Load details
+                </p>
+            </center>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-8">
         <div class="flight-sec-left">
             <div class="col-md-4 chart-area">
-                <div id="gauge_DomasticDepart" class="chart-container"></div>
+                <div id="overalotp" class="chart-container"></div>
 
             </div>
             <div class="col-md-4 chart-area">
-                <div id="gauge_InternationalDepart" class="chart-container"></div>
+                <div id="otp_sector" class="chart-container"></div>
 
             </div>
             <div class="col-md-4 chart-area">
-                <div id="bar_flightTypeAnlysis" class="chart-container"></div>
+                <div id="bar_otp_metro" class="chart-container"></div>
             </div>
 
         </div>
     </div>
     <div class="col-lg-4">
         <div class="flight-sec-right">
-
-
+            <div id="meter_load_factor" class="chart-container"></div>
         </div>
     </div>
 </div>
-</br>
-<section class="content-header">
-    <center>
-        <p>
-            Flight Section
-        </p>
-    </center>
-</section>
-</br>
 <div class="row">
     <div class="col-lg-4">
-        <div class="flight-sec-left">
+        <div class="otp-title-sec-left">
+            <center>
+                <p>
+                    Disprution Details
+                </p>
+            </center>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="otp-title-sec-center">
+            <center>
+                <p>
+                    Delay Analysis
+                </p>
+            </center>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="otp-title-sec-right">
+            <center>
+                <p>
+                    Planned vs Actual
+                </p>
+            </center>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="chart-area">
 
 
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="flight-sec-center">
+        <div class="chart-area">
 
 
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="flight-sec-right">
+        <div class="chart-area">
 
 
         </div>
