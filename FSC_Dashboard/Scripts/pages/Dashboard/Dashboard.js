@@ -7,6 +7,7 @@ $(document).ready(function (event) {
     flight_section_DomasticDepart_chart();
     flight_section_InternationDepart_chart();
     flight_type_analysis_chart();
+    flight_AircraftUtilization_chart();
 });
 
 
@@ -568,5 +569,44 @@ function flight_type_analysis_chart() {
                 }
             ]
         }
+    });
+}
+
+function flight_AircraftUtilization_chart() {
+    Highcharts.chart('container1', {
+        chart: {
+            type: 'pie',
+            backgroundColor: 'transparent',
+            options3d: {
+                enabled: true,
+                alpha: 45
+            }
+        },
+        title: {
+            text: 'Contents of Highsoft\'s weekly fruit delivery'
+        },
+        subtitle: {
+            text: '3D donut in Highcharts'
+        },
+        plotOptions: {
+            pie: {
+                innerSize: 100,
+                depth: 45
+            }
+        },
+        series: [{
+            name: 'Delivered amount',
+            data: [
+                ['Bananas', 8],
+                ['Kiwi', 3],
+                ['Mixed nuts', 1],
+                ['Oranges', 6],
+                ['Apples', 8],
+                ['Pears', 4],
+                ['Clementines', 4],
+                ['Reddish (bag)', 1],
+                ['Grapes (bunch)', 1]
+            ]
+        }]
     });
 }
