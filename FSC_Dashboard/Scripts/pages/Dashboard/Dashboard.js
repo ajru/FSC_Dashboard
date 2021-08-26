@@ -14,6 +14,8 @@ $(document).ready(function (event) {
     otp_SectorType_chart()
     otp_metro_chart()
     opt_load_factor()
+    disruption_chart()
+    delay_analysis_chart()
 });
 
 
@@ -1035,8 +1037,112 @@ function otp_metro_chart() {
     });
 }
 
+function disruption_chart() {
+
+    Highcharts.chart('bar_disruption', {
+        chart: {
+            type: 'column',
+            backgroundColor: 'transparent',
+        },
+        title: {
+            text: 'Stacked column chart'
+        },
+        xAxis: {
+            categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Total fruit consumption'
+            }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true
+        },
+        plotOptions: {
+            column: {
+                stacking: 'percent'
+            }
+        },
+        series: [{
+            name: 'John',
+            data: [5, 3, 4, 7, 2]
+        }, {
+            name: 'Jane',
+            data: [2, 2, 3, 2, 1]
+        }, {
+            name: 'Joe',
+            data: [3, 4, 4, 2, 5]
+        }]
+    });
+}
+
+function delay_analysis_chart() {
+    var chart = new Highcharts.Chart({
+        chart: {
+            renderTo: 'delay_analysis',
+            type: 'pie',
+            backgroundColor: 'transparent',
+            events: {
+                load: function () {
+                    var chart = this,
+                        x = chart.plotLeft + (chart.series[0].center[0]),
+                        y = chart.plotTop + (chart.series[0].center[1]),
+                        box;
+
+                    chart.pieCenter = chart.renderer.text('aSD<br>500 ASD.', x, y, true)
+                        .css({
+                            'text-align': 'center',
+                            color: 'black',
+                            fontSize: '16px'
+                        })
+                        .add();
+
+                    box = chart.pieCenter.getBBox();
+                    chart.pieCenter.attr({
+                        x: x - box.width / 2,
+                        y: y - box.height / 4
+                    });
+                },
+                redraw: function () {
+                    var chart = this,
+                        x = chart.plotLeft + (chart.series[0].center[0]),
+                        y = chart.plotTop + (chart.series[0].center[1]),
+                        box = chart.pieCenter.getBBox();
+                    chart.pieCenter.attr({
+                        x: x - box.width / 2,
+                        y: y - box.height / 4
+                    });
+                }
+            }
+        },
+        plotOptions: {
+            pie: {
+                innerSize: '60%'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'middle'
+        },
+        series: [{
+            showInLegend: true,
+            data: [
+                ['Firefox', 44.2],
+                ['IE7', 26.6],
+                ['IE6', 20],
+                ['Chrome', 3.1],
+                ['Other', 5.4]
+            ]
+        }]
+    });
+}
+
 function opt_load_factor() {
-    Highcharts.chart('meter_load_factor', {
+    Highcharts.chart('meter_load_factor',
+        {
 
         chart: {
             type: 'gauge',
@@ -1049,7 +1155,7 @@ function opt_load_factor() {
         },
 
         title: {
-            text: 'Speedometer with dual axes'
+            text: 'Load Factor'
         },
 
         pane: {
@@ -1121,7 +1227,8 @@ function opt_load_factor() {
 
     },
         // Add some life
-        function (chart) {
+        function (chart)
+        {
             setInterval(function () {
                 if (chart.axes) { // not destroyed
                     var point = chart.series[0].points[0],
