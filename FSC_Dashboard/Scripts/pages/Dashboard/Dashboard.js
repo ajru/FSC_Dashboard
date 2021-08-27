@@ -1064,15 +1064,24 @@ function opt_load_factor() {
             pane: {
                 startAngle: -150,
                 endAngle: 150,
-                size:190
+                size: 190,
+                
+                background: {
+                    borderWidth: 0,
+                    backgroundColor: 'rgba(0,0,0,0)',
+                    innerRadius: '60%',
+                    outerRadius: '100%',
+                    shape: 'arc'
+                }
+
             },
 
             yAxis: [{
                 min: 0,
-                max: 200,
-                lineColor: '#339',
-                tickColor: '#339',
-                minorTickColor: '#339',
+                max: 160,
+                lineColor: '#DDDF0D',
+                tickColor: '#933',
+                minorTickColor: '#933',
                 offset: -25,
                 lineWidth: 2,
                 labels: {
@@ -1084,13 +1093,13 @@ function opt_load_factor() {
                 endOnTick: false
             }, {
                 min: 0,
-                max: 124,
+                max: 240,
                 tickPosition: 'outside',
-                lineColor: '#933',
+                lineColor: '#339',
                 lineWidth: 2,
                 minorTickPosition: 'outside',
-                tickColor: '#933',
-                minorTickColor: '#933',
+                tickColor: '#339',
+                minorTickColor: '#339',
                 tickLength: 5,
                 minorTickLength: 5,
                 labels: {
@@ -1104,12 +1113,15 @@ function opt_load_factor() {
             series: [{
                 name: 'Speed',
                 data: [80],
+                dial: {
+                    backgroundColor: '#339'
+                },
                 dataLabels: {
                     formatter: function () {
                         var kmh = this.y,
                             mph = Math.round(kmh * 0.621);
-                        return '<span style="color:#339">' + kmh + ' km/h</span><br/>' +
-                            '<span style="color:#933">' + mph + ' mph</span>';
+                        return '<span style="color:#933">' + kmh + ' km/h</span><br/>' +
+                            '<span style="color:#339">' + mph + ' mph</span>';
                     },
                     backgroundColor: {
                         linearGradient: {
