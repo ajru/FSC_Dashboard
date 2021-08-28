@@ -1,4 +1,5 @@
-﻿var applicationUrl;
+﻿
+var applicationUrl;
 
 $(document).ready(function (event) {
     applicationUrl = $("#applicationPath").val();
@@ -59,17 +60,23 @@ function flight_section_DomasticDepart_chart() {
                 [0.1, '#55BF3B'], // green
                 [0.5, '#DDDF0D'], // yellow
                 [0.9, '#DF5353'] // red
-            ],
-            lineWidth: 0,
-            tickWidth: 0,
-            minorTickInterval: null,
-            tickAmount: 2,
+            ],           
             title: {
                 y: -90
-            },
+            },     
+            minorTickColor: '#933',
+            offset: -55,
+            lineWidth: -10,
             labels: {
-                y: 16
-            }
+                distance: -15,
+                style: {
+                    color: 'white'
+                },
+                rotation: 'auto'
+            },
+            tickLength: 0,
+            minorTickLength: 0,
+            endOnTick: false
         },
 
         plotOptions: {
@@ -82,42 +89,64 @@ function flight_section_DomasticDepart_chart() {
             }
         }
     };
+    var chartSpeed,chartMaxVal = 0;
 
-    // The speed gauge
-    var chartSpeed = Highcharts.chart('gauge_DomasticDepart', Highcharts.merge(gaugeOptions, {
+    $.ajax({
+        type: 'POST',
+        url: applicationUrl + "Dashboard/Get_Flight_International_Domastic_Departs",
+        dataType: 'json',
+        data: {
+            fromDate: function () { return '' },
+            toDate: function () { return '' },
+            ddValue: function () { return 'Current Day' },
+        },
+        success: function (result) {
+            console.log("ajax result", result.result);
+            chartMaxVal = result.result.Total;
 
-        yAxis: {
-            min: 0,
-            max: 200,
-            title: {
-                style: {
-                    color: '#eee'
+            // The speed gauge
+            chartSpeed = Highcharts.chart('gauge_DomasticDepart', Highcharts.merge(gaugeOptions, {
+
+                yAxis: {
+                    min: 0,
+                    max: result.result.Total,
+                    title: {
+                        style: {
+                            color: '#eee'
+                        },
+                        margin: 50,
+                        text: 'Domastic Departure'
+                    }
                 },
-                margin:50,
-                text: 'Domastic Departure'               
-            }
+
+                credits: {
+                    enabled: false
+                },
+
+                series: [{
+                    name: 'Domastic Departure',
+                    data: [80],
+                    dataLabels: {
+                        format:
+                            '<div style="text-align:center">' +
+                            '<span style="font-size:25px;color:rgb(255,255,255,1)">{y}</span><br/>' +
+                            '<span style="font-size:12px;opacity:0.4;color:"white""></span>' +
+                            '</div>'
+                    },
+                    tooltip: {
+                        valueSuffix: ' '
+                    }
+                }]
+
+            }));
+
         },
+        error: function (ex) {
+            alert('Failed to retrieve Sector : ' + ex);
+        }
+    });
 
-        credits: {
-            enabled: false
-        },
-
-        series: [{
-            name: 'Domastic Departure',
-            data: [80],
-            dataLabels: {
-                format:
-                    '<div style="text-align:center">' +
-                    '<span style="font-size:25px;color:rgb(255,255,255,1)">{y}</span><br/>' +
-                    '<span style="font-size:12px;opacity:0.4;color:"white""></span>' +
-                    '</div>'
-            },
-            tooltip: {
-                valueSuffix: ' '
-            }
-        }]
-
-    }));
+ 
   
 
     // Bring life to the dials
@@ -132,14 +161,14 @@ function flight_section_DomasticDepart_chart() {
             inc = Math.round((Math.random() - 0.5) * 100);
             newVal = point.y + inc;
 
-            if (newVal < 0 || newVal > 200) {
+            if (newVal < 0 || newVal > chartMaxVal) {
                 newVal = point.y - inc;
             }
 
             point.update(newVal);
         }
      
-    }, 2000);
+    }, 5000);
 
 
 
@@ -167,7 +196,6 @@ function flight_section_InternationDepart_chart() {
                 shape: 'arc'
             }
         },
-
         exporting: {
             enabled: false
         },
@@ -175,26 +203,29 @@ function flight_section_InternationDepart_chart() {
         tooltip: {
             enabled: false
         },
-
-        // the value axis
         yAxis: {
             stops: [
                 [0.1, '#55BF3B'], // green
                 [0.5, '#DDDF0D'], // yellow
                 [0.9, '#DF5353'] // red
             ],
-            lineWidth: 0,
-            tickWidth: 0,
-            minorTickInterval: null,
-            tickAmount: 2,
             title: {
                 y: -90
             },
+            minorTickColor: '#933',
+            offset: -55,
+            lineWidth: -10,
             labels: {
-                y: 16
-            }
+                distance: -15,
+                style: {
+                    color: 'white'
+                },
+                rotation: 'auto'
+            },
+            tickLength: 0,
+            minorTickLength: 0,
+            endOnTick: false
         },
-
         plotOptions: {
             solidgauge: {
                 dataLabels: {
@@ -1042,7 +1073,7 @@ function opt_load_factor() {
     Highcharts.chart('meter_load_factor',
         {
             chart: {
-                marginTop: -100,
+                marginTop: -50,
                 type: 'gauge',
                 backgroundColor: 'transparent',
                 alignTicks: false,
@@ -1062,13 +1093,14 @@ function opt_load_factor() {
             credits: false,
 
             pane: {
-                startAngle: -150,
-                endAngle: 150,
-                size: 190,
-                
+                startAngle: -120,
+                endAngle: 120,
+                size: 270,                         
+                //center: ['25%', '145%'],                       
                 background: {
                     borderWidth: 0,
-                    backgroundColor: 'rgba(0,0,0,0)',
+                    backgroundColor: 'transparent',
+                    color:'white',
                     innerRadius: '60%',
                     outerRadius: '100%',
                     shape: 'arc'
@@ -1081,11 +1113,14 @@ function opt_load_factor() {
                 max: 160,
                 lineColor: '#DDDF0D',
                 tickColor: '#933',
-                minorTickColor: '#933',
+                minorTickColor: '#933',   
                 offset: -25,
-                lineWidth: 2,
+                lineWidth: -10,
                 labels: {
-                    distance: -10,
+                    distance: -15,
+                    style: {
+                        color: 'white'
+                    },
                     rotation: 'auto'
                 },
                 tickLength: 5,
@@ -1097,13 +1132,17 @@ function opt_load_factor() {
                 tickPosition: 'outside',
                 lineColor: '#339',
                 lineWidth: 2,
+                color: "white",
                 minorTickPosition: 'outside',
                 tickColor: '#339',
                 minorTickColor: '#339',
                 tickLength: 5,
                 minorTickLength: 5,
                 labels: {
-                    distance: 12,
+                    distance: 10,
+                    style: {
+                        color: 'white'
+                    },
                     rotation: 'auto'
                 },
                 offset: -20,
@@ -1114,31 +1153,32 @@ function opt_load_factor() {
                 name: 'Speed',
                 data: [80],
                 dial: {
-                    backgroundColor: '#339'
+                    backgroundColor: 'transparent',
+                    color:'white'
                 },
-                dataLabels: {
-                    formatter: function () {
-                        var kmh = this.y,
-                            mph = Math.round(kmh * 0.621);
-                        return '<span style="color:#933">' + kmh + ' km/h</span><br/>' +
-                            '<span style="color:#339">' + mph + ' mph</span>';
-                    },
-                    backgroundColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, '#DDD'],
-                            [1, '#FFF']
-                        ]
-                    }
-                },
-                tooltip: {
-                    valueSuffix: ' km/h'
-                }
+                //dataLabels: {
+                //    formatter: function () {
+                //        var kmh = this.y,
+                //            mph = Math.round(kmh * 0.621);
+                //        return '<span style="color:#933">' + kmh + ' km/h</span><br/>' +
+                //            '<span style="color:#339">' + mph + ' mph</span>';
+                //    },
+                //    backgroundColor: {
+                //        linearGradient: {
+                //            x1: 0,
+                //            y1: 0,
+                //            x2: 0,
+                //            y2: 1
+                //        },
+                //        stops: [
+                //            [0, '#DDD'],
+                //            [1, '#FFF']
+                //        ]
+                //    }
+                //},
+                //tooltip: {
+                //    valueSuffix: ' km/h'
+                //}
             }]
 
         },

@@ -42,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiParams.cs" />
+    <Compile Include="FlightSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responce.cs" />
+    <Compile Include="SearchCriteria.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

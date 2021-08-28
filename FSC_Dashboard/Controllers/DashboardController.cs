@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FSC_Dashboard_Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,8 @@ namespace FSC_Dashboard.Controllers
 {
     public class DashboardController : Controller
     {
-        // GET: Dashboard
+       
+        #region Charts Views
         public ActionResult Index()
         {
             if (String.IsNullOrEmpty(Convert.ToString(Session["Username"])))
@@ -59,7 +61,25 @@ namespace FSC_Dashboard.Controllers
             return View();
         }
 
-        //#333
+        #endregion
+
+        #region Chart Callbacks
+
+        public JsonResult Get_Flight_International_Domastic_Departs(string fromDate, string toDate,string ddValue)
+        {
+            FlightSection flightSection = new FlightSection();
+
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+
+            flightSection = BusinessHelper.BusinessHelper.Get_Flight_International_Domastic_Departs(search);         
+            return Json(new { result = flightSection }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        #endregion
 
 
 

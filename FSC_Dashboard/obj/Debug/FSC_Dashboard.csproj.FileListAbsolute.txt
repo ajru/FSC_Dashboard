@@ -170,3 +170,5 @@ D:\Raymach\FSC Dashboard\FSC_Dashboard\FSC_Dashboard\bin\log4net.xml
 D:\Raymach\FSC Dashboard\FSC_Dashboard\FSC_Dashboard\obj\Debug\FSC_Dashboard.dll
 D:\Raymach\FSC Dashboard\FSC_Dashboard\FSC_Dashboard\obj\Debug\FSC_Dashboard.pdb
 D:\Raymach\FSC Dashboard\FSC_Dashboard\FSC_Dashboard\obj\Debug\FSC_Dashboard.csprojResolveAssemblyReference.cache
+C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard\bin\FSC_Dashboard_DL.dll
+C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard\bin\FSC_Dashboard_DL.pdb

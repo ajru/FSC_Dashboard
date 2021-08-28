@@ -47,6 +47,10 @@
     <Compile Include="SqlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FSC_Dashboard_Entity\FSC_Dashboard_Entity.csproj">
+      <Project>{CBA32376-8F43-44E9-9906-29ADEDDE4AC6}</Project>
+      <Name>FSC_Dashboard_Entity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FSC_Dashboard_Logger\FSC_Dashboard_Logger.csproj">
       <Project>{fedbe50e-6a61-429c-8bc9-ac3ec87fa268}</Project>
       <Name>FSC_Dashboard_Logger</Name>

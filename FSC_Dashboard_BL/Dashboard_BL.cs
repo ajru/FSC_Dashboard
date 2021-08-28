@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FSC_Dashboard_DL;
+using FSC_Dashboard_Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,18 @@ namespace FSC_Dashboard_BL
 {
     public class Dashboard_BL
     {
-    }
+        Dashboard_DL DL;
+
+        public Dashboard_BL()
+        {
+            DL = new Dashboard_DL();
+        }
+
+        public FlightSection Get_Flight_International_Domastic_Departs(SearchCriteria search)
+        {
+            return DL.Get_Flight_International_Domastic_Departs(search);
+
+        }
+
+     }
 }
