@@ -9,7 +9,7 @@ namespace FSC_Dashboard.Controllers
 {
     public class DashboardController : Controller
     {
-       
+
         #region Charts Views
         public ActionResult Index()
         {
@@ -65,7 +65,7 @@ namespace FSC_Dashboard.Controllers
 
         #region Chart Callbacks
 
-        public JsonResult Get_Flight_International_Domastic_Departs(string fromDate, string toDate,string ddValue)
+        public JsonResult Get_Flight_International_Domastic_Departs(string fromDate, string toDate, string ddValue)
         {
             FlightSection flightSection = new FlightSection();
 
@@ -74,8 +74,53 @@ namespace FSC_Dashboard.Controllers
             search.ToDate = toDate;
             search.DateDropDownValue = ddValue;
 
-            flightSection = BusinessHelper.BusinessHelper.Get_Flight_International_Domastic_Departs(search);         
+            flightSection = BusinessHelper.BusinessHelper.Get_Flight_International_Domastic_Departs(search);
             return Json(new { result = flightSection }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_flight_type_analysis_chart(string fromDate, string toDate, string ddValue)
+        {
+            List<FlightSection> LstFlightTypeAnalysis = new List<FlightSection>();
+
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+
+            LstFlightTypeAnalysis = BusinessHelper.BusinessHelper.Get_flight_type_analysis_chart(search);
+            var json = from rs in LstFlightTypeAnalysis
+                       select new
+                       {
+                           Pid = rs.Pid.ToString(),
+                           FlightType = rs.FlightType.ToString(),
+                           Value = rs.Value.ToString(),
+
+                       };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_disruption_chart(string fromDate, string toDate, string ddValue)
+        {
+            List<FlightSection> LstFlightTypeAnalysis = new List<FlightSection>();
+
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+
+            LstFlightTypeAnalysis = BusinessHelper.BusinessHelper.Get_disruption_chart(search);
+            var json = from rs in LstFlightTypeAnalysis
+                       select new
+                       {
+                           Pid = rs.Pid.ToString(),
+                           BaseName = rs.BaseName.ToString(),
+                           FlightType = rs.FlightType.ToString(),
+                           Value = rs.Value.ToString(),
+
+                       };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
 

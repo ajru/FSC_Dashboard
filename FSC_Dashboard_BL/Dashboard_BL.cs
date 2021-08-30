@@ -22,6 +22,16 @@ namespace FSC_Dashboard_BL
             return DL.Get_Flight_International_Domastic_Departs(search);
 
         }
+        public List<FlightSection> Get_flight_type_analysis_chart(SearchCriteria search)
+        {
+            return DL.Get_flight_type_analysis_chart(search);
+        }
+        public List<FlightSection> Get_disruption_chart(SearchCriteria search)
+        {
+            return DL.Get_disruption_chart(search);
+        }
+        
 
-     }
+
+    }
 }
