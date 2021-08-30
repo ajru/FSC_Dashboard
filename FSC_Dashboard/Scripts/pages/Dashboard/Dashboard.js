@@ -6,7 +6,7 @@ $(document).ready(function (event) {
 
 
     flight_section_DomasticDepart_chart();
-    flight_section_InternationDepart_chart();
+    //flight_section_InternationDepart_chart();
     flight_type_analysis_chart();
     flight_AircraftUtilization_chart();
 
@@ -24,7 +24,7 @@ $(document).ready(function (event) {
 // Flifgt Section Charts
 function flight_section_DomasticDepart_chart() {
 
-    var gaugeOptions = {
+    var domastic_gaugeOptions = {
         chart: {
             type: 'solidgauge',
             backgroundColor: 'transparent',
@@ -72,7 +72,7 @@ function flight_section_DomasticDepart_chart() {
                 style: {
                     color: 'white'
                 },
-                rotation: 'auto'
+                //rotation: 'auto'
             },
             tickLength: 0,
             minorTickLength: 0,
@@ -89,7 +89,69 @@ function flight_section_DomasticDepart_chart() {
             }
         }
     };
-    var chartSpeed,chartMaxVal = 0;
+    var International_gaugeOptions = {
+        chart: {
+            type: 'solidgauge',
+            backgroundColor: 'transparent',
+        },
+
+        title: null,
+
+        pane: {
+            center: ['50%', '50%'],
+            size: '100%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                //backgroundColor:                   
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+        },
+        exporting: {
+            enabled: false
+        },
+
+        tooltip: {
+            enabled: false
+        },
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+            title: {
+                y: -90
+            },
+            minorTickColor: '#933',
+            offset: -55,
+            lineWidth: -10,
+            labels: {
+                distance: -15,
+                style: {
+                    color: 'white'
+                },
+                rotation: 'auto'
+            },
+            tickLength: 0,
+            minorTickLength: 0,
+            endOnTick: false
+        },
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: -20,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+
+    var Domastic_chartSpeed, Domastic_chartMaxVal = 0,Domastic_chartData = [];
+    var international_chartSpeed, international_chartMaxVal = 0, international_chartData = [];
 
     $.ajax({
         type: 'POST',
@@ -101,15 +163,24 @@ function flight_section_DomasticDepart_chart() {
             ddValue: function () { return 'Current Day' },
         },
         success: function (result) {
+            Domastic_chartData = []
+            international_chartData = []
             console.log("ajax result", result.result);
-            chartMaxVal = result.result.Total;
 
-            // The speed gauge
-            chartSpeed = Highcharts.chart('gauge_DomasticDepart', Highcharts.merge(gaugeOptions, {
+            Domastic_chartMaxVal = result.result.Domestic_Flight;
+            Domastic_chartData.push(parseInt(result.result.Domestic_Flight_Departure))
+
+            international_chartMaxVal = result.result.InterNational_Flight;
+            international_chartData.push(parseInt(result.result.International_FlightDeparture))
+
+            console.log("inter chartData", international_chartData)
+
+            // Domastic gauge
+            Domastic_chartSpeed = Highcharts.chart('gauge_DomasticDepart', Highcharts.merge(domastic_gaugeOptions, {
 
                 yAxis: {
                     min: 0,
-                    max: result.result.Total,
+                    max: Domastic_chartMaxVal,
                     title: {
                         style: {
                             color: '#eee'
@@ -125,7 +196,7 @@ function flight_section_DomasticDepart_chart() {
 
                 series: [{
                     name: 'Domastic Departure',
-                    data: [80],
+                    data: Domastic_chartData,
                     dataLabels: {
                         format:
                             '<div style="text-align:center">' +
@@ -140,35 +211,120 @@ function flight_section_DomasticDepart_chart() {
 
             }));
 
+            // International gauge
+            international_chartSpeed = Highcharts.chart('gauge_InternationalDepart', Highcharts.merge(International_gaugeOptions, {
+                yAxis: {
+                    min: 0,
+                    max: international_chartMaxVal,
+                    title: {
+                        style: {
+                            color: '#eee'
+                        },
+                        text: 'Internation Departure'
+                    }
+                },
+
+                credits: {
+                    enabled: false
+                },
+
+                series: [{
+                    name: 'Internation Departure',
+                    data: international_chartData,
+                    dataLabels: {
+                        format:
+                            '<div style="text-align:center">' +
+                            '<span style="font-size:25px;color:rgb(255,255,255,1)">{y}</span><br/>' +
+                            '<span style="font-size:12px;opacity:0.4;color:rgb(255,255,255,1)"></span>' +
+                            '</div>'
+                    },
+                    tooltip: {
+                        valueSuffix: ' '
+                    }
+                }]
+
+            }));
+
+
         },
         error: function (ex) {
             alert('Failed to retrieve Sector : ' + ex);
         }
     });
 
- 
-  
-
     // Bring life to the dials
     setInterval(function () {
-        // Speed
-        var point,
-            newVal,
-            inc;
 
-        if (chartSpeed) {
-            point = chartSpeed.series[0].points[0];
-            inc = Math.round((Math.random() - 0.5) * 100);
-            newVal = point.y + inc;
+        $.ajax({
+            type: 'POST',
+            url: applicationUrl + "Dashboard/Get_Flight_International_Domastic_Departs",
+            dataType: 'json',
+            data: {
+                fromDate: function () { return '' },
+                toDate: function () { return '' },
+                ddValue: function () { return 'Current Day' },
+            },
+            success: function (result) {
+                Domastic_chartData = []
+                international_chartData = []
+                //console.log("ajax result", result.result);
 
-            if (newVal < 0 || newVal > chartMaxVal) {
-                newVal = point.y - inc;
+                Domastic_chartMaxVal = result.result.Domestic_Flight;
+                Domastic_chartData.push(parseInt(result.result.Domestic_Flight_Departure))
+
+                international_chartMaxVal = result.result.InterNational_Flight;
+                international_chartData.push(parseInt(result.result.International_FlightDeparture))
+
+                // Domastic
+                Domastic_chartSpeed.yAxis[0].update({
+                    max: Domastic_chartMaxVal,
+                })
+
+                //console.log("Domestic_Flight_Departure chartData", Domastic_chartData)                   
+                var point,
+                    newVal,
+                    inc;
+
+                if (Domastic_chartSpeed) {
+                    point = Domastic_chartSpeed.series[0].points[0];
+                    y = Domastic_chartSpeed.yAxis[0].max;
+                    inc = Math.round((Domastic_chartData - 0.5) * 100);
+                    newVal = point.y + inc;
+
+                    if (newVal < 0 || newVal > Domastic_chartMaxVal) {
+                        newVal = point.y - inc;
+                    }                  
+                    point.update(newVal);                
+                }
+
+                // international
+                international_chartSpeed.yAxis[0].update({
+                    max: international_chartMaxVal,
+                })
+                console.log("international_chartData chartData", international_chartData)
+
+                var in_point,
+                    in_newVal,
+                    in_inc;
+
+                if (Domastic_chartSpeed) {
+                    in_point = Domastic_chartSpeed.series[0].points[0];
+                    y = Domastic_chartSpeed.yAxis[0].max;
+                    in_inc = Math.round((Domastic_chartData - 0.5) * 100);
+                    in_newVal = in_point.y + in_inc;
+
+                    if (in_newVal < 0 || in_newVal > Domastic_chartMaxVal) {
+                        in_newVal = in_point.y - in_inc;
+                    }
+                    in_point.update(in_newVal);
+                }
+
+            },
+            error: function (ex) {
+                alert('Failed to retrieve Sector : ' + ex);
             }
-
-            point.update(newVal);
-        }
-     
-    }, 5000);
+        });
+    }, 15000);
 
 
 
