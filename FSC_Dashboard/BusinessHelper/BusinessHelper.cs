@@ -15,6 +15,18 @@ namespace FSC_Dashboard.BusinessHelper
             return BL.Get_Flight_International_Domastic_Departs(search);
         }
 
+        public static List<FlightSection> Get_flight_type_analysis_chart(SearchCriteria search)
+        {
+            Dashboard_BL BL = new Dashboard_BL();
+            return BL.Get_flight_type_analysis_chart(search);
+        }
+        public static List<FlightSection> Get_disruption_chart(SearchCriteria search)
+        {
+            Dashboard_BL BL = new Dashboard_BL();
+            return BL.Get_disruption_chart(search);
+        }
+        
+
 
     }
 }

@@ -22,3 +22,5 @@ D:\Raymach\FSC Dashboard\FSC_Dashboard\FSC_Dashboard_DL\obj\Debug\FSC_Dashboard_
 D:\Raymach\FSC Dashboard\FSC_Dashboard\FSC_Dashboard_DL\obj\Debug\FSC_Dashboard_DL.pdb
 C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_Entity.dll
 C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_Entity.pdb
+D:\Raymach\FSC Dashboard\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_Entity.dll
+D:\Raymach\FSC Dashboard\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_Entity.pdb
