@@ -166,7 +166,7 @@ function flight_section_DomasticDepart_chart() {
         success: function (result) {
             Domastic_chartData = []
             international_chartData = []
-            console.log("ajax result", result.result);
+            //console.log("ajax result", result.result);
 
             Domastic_chartMaxVal = result.result.Domestic_Flight;
             Domastic_chartData.push(parseInt(result.result.Domestic_Flight_Departure))
@@ -174,7 +174,7 @@ function flight_section_DomasticDepart_chart() {
             international_chartMaxVal = result.result.InterNational_Flight;
             international_chartData.push(parseInt(result.result.International_FlightDeparture))
 
-            console.log("inter chartData", international_chartData)
+            //console.log("inter chartData", international_chartData)
 
             // Domastic gauge
             Domastic_chartSpeed = Highcharts.chart('gauge_DomasticDepart', Highcharts.merge(domastic_gaugeOptions, {
@@ -325,7 +325,7 @@ function flight_section_DomasticDepart_chart() {
                 alert('Failed to retrieve Sector : ' + ex);
             }
         });
-    }, 15000);
+    }, 115000);
 
 
 
@@ -467,7 +467,7 @@ function flight_type_analysis_chart() {
         },
         success: function (data) {
 
-            console.log("load chart data..", data)
+            //console.log("load chart data..", data)
 
             var data1 = []
             //data1 = data
@@ -475,7 +475,7 @@ function flight_type_analysis_chart() {
                 data1.push({ 'name': item.FlightType, 'y': parseFloat(item.Value), 'drilldown': item.FlightType })
             });
 
-            console.log("chart data1..", data1)
+            //console.log("chart data1..", data1)
 
             //var drilldown_count = 0;
 
@@ -581,8 +581,8 @@ function flight_type_analysis_chart() {
 
             },
                 function (chart) { // on complete
-                    console.log("data chart", chart.series[0].data.length)
-                    console.log("data1", data1.length)
+                    //console.log("data chart", chart.series[0].data.length)
+                    //console.log("data1", data1.length)
 
                     if (data1.length < 1) { // check series is empty
                         console.log("Check point 1")
@@ -598,7 +598,7 @@ function flight_type_analysis_chart() {
                 });
         },
         complete: function () {
-            console.log("in compelete...");
+            //console.log("in compelete...");
             $("#overlay").hide();
             $(".overlay").hide();
         },
@@ -767,7 +767,7 @@ function otp_metro_chart() {
         },
         success: function (data) {
 
-            console.log("load chart data..", data)
+            //console.log("load chart data..", data)
 
             var data1 = []
             //data1 = data
@@ -1067,7 +1067,7 @@ function disruption_chart() {
                 flags[data[i].BaseName] = true;
                 categories.push(data[i].BaseName);
             }
-            console.log("categories", categories)
+            //console.log("categories", categories)
 
             let volChange = [], noChange = [], Change = []
 
@@ -1097,7 +1097,7 @@ function disruption_chart() {
                 },
             ]
 
-            console.log("chart data1.. one", chart_data)
+            //console.log("chart data1.. one", chart_data)
 
             // Create the chart
             Highcharts.chart('bar_disruption', {
@@ -1256,66 +1256,98 @@ function disruption_chart() {
 }
 
 function delay_analysis_chart() {
-    var chart = new Highcharts.Chart({
-        chart: {
-            renderTo: 'delay_analysis',
-            marginTop: -100,
-            type: 'pie',
-            backgroundColor: 'transparent',
-            events: {
-                load: function () {
-                    var chart = this,
-                        x = chart.plotLeft + (chart.series[0].center[0]),
-                        y = chart.plotTop + (chart.series[0].center[1]),
-                        box;
 
-                    chart.pieCenter = chart.renderer.text('aSD<br>500 ASD.', x, y, true)
-                        .css({
-                            'text-align': 'center',
-                            color: 'black',
-                            fontSize: '16px'
-                        })
-                        .add();
+    $.ajax({
+        type: 'POST',
+        url: applicationUrl + "Dashboard/Get_Delay_analysis_chart",
+        dataType: 'json',
+        data: {
+            fromDate: function () { return '' },
+            toDate: function () { return '' },
+            ddValue: function () { return 'Current Day' },
+        },
+        success: function (res) {
 
-                    box = chart.pieCenter.getBBox();
-                    chart.pieCenter.attr({
-                        x: x - box.width / 2,
-                        y: y - box.height / 4
-                    });
+            //console.log("delay analysis res", res)
+
+            var delay_data = [], delay_ = [], delay_sum = 0
+            $.each(res, function (i, item) {
+                delay_.push(parseInt(item.DelayCount))
+                delay_data.push([item.GroupCode, parseInt(item.DelayCount)])
+            });
+          
+            for (var i = 0; i < delay_.length; i++) {
+                delay_sum += delay_[i];
+            }
+
+            console.log("delay_data", delay_data)           
+
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'delay_analysis',
+                    marginTop: -100,
+                    type: 'pie',
+                    backgroundColor: 'transparent',
+                    events: {
+                        load: function () {
+                            var chart = this,
+                                x = chart.plotLeft + (chart.series[0].center[0]),
+                                y = chart.plotTop + (chart.series[0].center[1]),
+                                box;
+
+                            chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
+                                .css({
+                                    'text-align': 'center',
+                                    color: 'white',
+                                    fontSize: '16px'
+                                })
+                                .add();
+
+                            box = chart.pieCenter.getBBox();
+                            chart.pieCenter.attr({
+                                x: x - box.width / 2,
+                                y: y - box.height / 4
+                            });
+                        },
+                        redraw: function () {
+                            var chart = this,
+                                x = chart.plotLeft + (chart.series[0].center[0]),
+                                y = chart.plotTop + (chart.series[0].center[1]),
+                                box = chart.pieCenter.getBBox();
+                            chart.pieCenter.attr({
+                                x: x - box.width / 2,
+                                y: y - box.height / 4
+                            });
+                        }
+                    }
                 },
-                redraw: function () {
-                    var chart = this,
-                        x = chart.plotLeft + (chart.series[0].center[0]),
-                        y = chart.plotTop + (chart.series[0].center[1]),
-                        box = chart.pieCenter.getBBox();
-                    chart.pieCenter.attr({
-                        x: x - box.width / 2,
-                        y: y - box.height / 4
-                    });
-                }
-            }
+                title: false,
+                exporting: false,
+                credits: false,
+                plotOptions: {
+                    pie: {
+                        innerSize: '60%'
+                    }
+                },
+                legend: false,
+                series: [{
+                    showInLegend: true,
+                    size: '34%',
+                    data: delay_data
+                }]
+            });
+
         },
-        title: false,
-        exporting: false,
-        credits: false,
-        plotOptions: {
-            pie: {
-                innerSize: '60%'
-            }
-        },
-        legend:false,
-        series: [{
-            showInLegend: true,
-            size: '34%',
-            data: [
-                ['Firefox', 44.2],
-                ['IE7', 26.6],
-                ['IE6', 20],
-                ['Chrome', 3.1],
-                ['Other', 5.4]
-            ]
-        }]
+        error: function (ex) {
+            alert('Failed to retrieve Delay Analysis data : ' + ex);
+        }
     });
+
+
+
+
+
+
 }
 
 function plannedVsActual_chart() {

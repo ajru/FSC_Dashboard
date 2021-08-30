@@ -30,7 +30,13 @@ namespace FSC_Dashboard_BL
         {
             return DL.Get_disruption_chart(search);
         }
-        
+
+        public List<DelayAnalysis> Get_Delay_analysis_chart(SearchCriteria search)
+        {
+            return DL.Get_Delay_analysis_chart(search);
+        }
+
+
 
 
     }

@@ -123,9 +123,30 @@ namespace FSC_Dashboard.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
-
         #endregion
 
+        #region Delay Analysis
+        public JsonResult Get_Delay_analysis_chart(string fromDate, string toDate, string ddValue)
+        {
+            List<DelayAnalysis> LstFlightTypeAnalysis = new List<DelayAnalysis>();
+
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+
+            LstFlightTypeAnalysis = BusinessHelper.BusinessHelper.Get_Delay_analysis_chart(search);
+            var json = from rs in LstFlightTypeAnalysis
+                       select new
+                       {
+                           GroupCode = rs.GroupCode.ToString(),
+                           DelayCount = rs.DelayCount.ToString(),
+                       };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
 
 
     }
