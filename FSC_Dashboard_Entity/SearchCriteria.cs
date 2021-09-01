@@ -8,6 +8,7 @@ namespace FSC_Dashboard_Entity
 {
    public class SearchCriteria
     {
+        public string Mode { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
         public string DateDropDownValue { get; set; }

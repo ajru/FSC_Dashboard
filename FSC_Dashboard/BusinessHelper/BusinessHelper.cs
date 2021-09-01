@@ -32,6 +32,12 @@ namespace FSC_Dashboard.BusinessHelper
             return BL.Get_Delay_analysis_chart(search);
         }
 
+        public static List<DelayAnalysis> Get_PannedVsActual_chart(SearchCriteria search)
+        {
+            Dashboard_BL BL = new Dashboard_BL();
+            return BL.Get_PannedVsActual_chart(search);
+        }
+
 
 
     }

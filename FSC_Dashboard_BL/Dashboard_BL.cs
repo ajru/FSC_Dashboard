@@ -36,6 +36,11 @@ namespace FSC_Dashboard_BL
             return DL.Get_Delay_analysis_chart(search);
         }
 
+        public List<DelayAnalysis> Get_PannedVsActual_chart(SearchCriteria search)
+        {
+            return DL.Get_PannedVsActual_chart(search);
+        }
+
 
 
 

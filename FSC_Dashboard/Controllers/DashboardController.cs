@@ -146,6 +146,28 @@ namespace FSC_Dashboard.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
+
+        public JsonResult Get_PannedVsActual_chart(string fromDate, string toDate, string ddValue)
+        {
+            List<DelayAnalysis> LstFlightTypeAnalysis = new List<DelayAnalysis>();
+
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+
+            LstFlightTypeAnalysis = BusinessHelper.BusinessHelper.Get_PannedVsActual_chart(search);
+            var json = from rs in LstFlightTypeAnalysis
+                       select new
+                       {
+                           FlightDate = rs.FlightDate.ToString(),
+                           ActualFlightTime = rs.ActualFlightTime.ToString(),
+                           PlannedFlightTime = rs.PlannedFlightTime.ToString()
+                       };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
 

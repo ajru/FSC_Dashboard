@@ -10,5 +10,9 @@ namespace FSC_Dashboard_Entity
     {
         public string GroupCode { get; set; }
         public string DelayCount { get; set; }
+
+        public string ActualFlightTime { get; set; }
+        public string PlannedFlightTime { get; set; }
+        public string FlightDate { get; set; }
     }
 }
