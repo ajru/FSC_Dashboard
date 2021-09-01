@@ -246,7 +246,6 @@ function flight_section_DomasticDepart_chart() {
 
             }));
 
-
         },
         error: function (ex) {
             alert('Failed to retrieve Sector : ' + ex);
