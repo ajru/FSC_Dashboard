@@ -24,3 +24,14 @@ C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_DL\obj\
 C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_DL\obj\Debug\FSC_Dashboard_DL.csproj.CopyComplete
 C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_DL\obj\Debug\FSC_Dashboard_DL.dll
 C:\Raymach\workspace\FSC Dashboard\FSC_Dashboard_workspace\FSC_Dashboard_DL\obj\Debug\FSC_Dashboard_DL.pdb
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_DL.dll
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_DL.pdb
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_Entity.dll
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_Logger.dll
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\log4net.dll
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_Entity.pdb
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\FSC_Dashboard_Logger.pdb
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\bin\Debug\log4net.xml
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\obj\Debug\FSC_Dashboard_DL.dll
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\obj\Debug\FSC_Dashboard_DL.pdb
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_DL\obj\Debug\FSC_Dashboard_DL.csprojResolveAssemblyReference.cache

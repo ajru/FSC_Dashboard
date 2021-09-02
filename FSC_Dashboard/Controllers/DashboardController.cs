@@ -124,7 +124,27 @@ namespace FSC_Dashboard.Controllers
         }
 
         #endregion
+        #region Aircraft Utilization
+        public JsonResult Get_Aircraft_Utilization_chart(string fromDate, string toDate, string ddValue)
+        {
+            List<FlightSection> LstAircraftUtilization = new List<FlightSection>();
 
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+
+            LstAircraftUtilization = BusinessHelper.BusinessHelper.Get_Aircraft_Utilization_chart(search);
+            var json = from rs in LstAircraftUtilization
+                       select new
+                       {
+                           FlightType = rs.FlightType.ToString(),
+                           Value = rs.Value.ToString(),
+                       };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
         #region Delay Analysis
         public JsonResult Get_Delay_analysis_chart(string fromDate, string toDate, string ddValue)
         {

@@ -149,7 +149,46 @@ namespace FSC_Dashboard_DL
             return lstChartData;
         }
 
+        public List<FlightSection> Get_Aircraft_Utilization_chart(SearchCriteria search)
+        {
+            List<FlightSection> lstChartData = new List<FlightSection>();
+            try
+            {
+                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[FSC_Dashboard_Aircraft_Utilization_chart]");
 
+
+                sqlHelper.AddParameter(cmd, "@FromDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
+                sqlHelper.AddParameter(cmd, "@ToDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ToDate);
+                sqlHelper.AddParameter(cmd, "@DateDropDownValue", SqlDbType.VarChar, 100, ParameterDirection.Input, search.DateDropDownValue);
+
+                SqlDataReader Dr = sqlHelper.ExecuteReader(cmd);
+                if (Dr == null || Dr.HasRows == false)
+                {
+                    //logEx.LogExceptionToDB(null, "No records returned from SP-H_ValidateUser", "Login - ValidateUser", 2);
+                }
+
+                if (Dr.HasRows)
+                {
+                    while (Dr.Read())
+                    {
+                        obj_FlightSection = new FlightSection();
+
+                        obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
+                        obj_FlightSection.BaseName = Convert.ToString(Dr["Base"]);
+                        obj_FlightSection.FlightType = Convert.ToString(Dr["FlightType"]);
+                        obj_FlightSection.Value = Convert.ToString(Dr["Value"]);
+                        //obj_Dashboardchart.BaseName = Convert.ToString(Dr["Base"]);
+
+                        lstChartData.Add(obj_FlightSection);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+            return lstChartData;
+        }
 
         #endregion
 

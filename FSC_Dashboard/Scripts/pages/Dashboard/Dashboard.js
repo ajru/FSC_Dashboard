@@ -609,147 +609,401 @@ function flight_type_analysis_chart() {
 
 
 function flight_AircraftUtilization_chart() {
-    Highcharts.chart('container1', {
-        chart: {
-            type: 'pie',
-            backgroundColor: 'transparent',     
-            marginTop:-100,
+    $.ajax({
+        type: 'POST',
+        url: applicationUrl + "Dashboard/Get_Delay_analysis_chart",
+        dataType: 'json',
+        data: {
+            fromDate: function () { return '' },
+            toDate: function () { return '' },
+            ddValue: function () { return 'Current Day' },
         },
-        legend: {
-            align: 'right',
-            verticalAlign: 'top',
-            layout: 'vertical',
-            x: -20,
-            y: 70,
-            color: '#eee'          
-        },
-        exporting: false,
-        credits: false,
-        title: {
-            text: 'Aircraft utilization',
-            margin: 10, 
-            style: {
-                color: '#eee'
-            },
-        },   
-        plotOptions: {
-            pie: {
-                //innerSize: 200,
-                shadow: false,
-                //depth: 100
+        success: function (res) {
+
+            console.log("delay analysis res", res)
+
+            var delay_data = [], delay_ = [], delay_sum = 0
+            $.each(res, function (i, item) {
+                delay_.push(parseInt(item.DelayCount))
+                delay_data.push([item.GroupCode, parseInt(item.DelayCount)])
+            });
+
+            for (var i = 0; i < delay_.length; i++) {
+                delay_sum += delay_[i];
             }
+
+            console.log("delay_data", delay_data)
+
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'container1',
+                    marginTop: -100,
+                    type: 'pie',
+                    backgroundColor: 'transparent',
+                    events: {
+                        load: function () {
+                            var chart = this,
+                                x = chart.plotLeft + (chart.series[0].center[0]),
+                                y = chart.plotTop + (chart.series[0].center[1]),
+                                box;
+
+                            chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
+                                .css({
+                                    'text-align': 'center',
+                                    color: 'white',
+                                    fontSize: '16px'
+                                })
+                                .add();
+
+                            box = chart.pieCenter.getBBox();
+                            chart.pieCenter.attr({
+                                x: x - box.width / 2,
+                                y: y - box.height / 4
+                            });
+                        },
+                        redraw: function () {
+                            var chart = this,
+                                x = chart.plotLeft + (chart.series[0].center[0]),
+                                y = chart.plotTop + (chart.series[0].center[1]),
+                                box = chart.pieCenter.getBBox();
+                            chart.pieCenter.attr({
+                                x: x - box.width / 2,
+                                y: y - box.height / 4
+                            });
+                        }
+                    }
+                },
+                title: false,
+                exporting: false,
+                credits: false,
+                plotOptions: {
+                    pie: {
+                        innerSize: '60%'
+                    }
+                },
+                legend: false,
+                series: [{
+                    showInLegend: true,
+                    size: '34%',
+                    data: delay_data
+                }]
+            });
+
         },
-        tooltip: {
-            formatter: function () {
-                return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
-            }
-        },
-        series: [{
-            name: 'Browsers',
-            data: [["Firefox", 6], ["MSIE", 4], ["Chrome", 7]],
-            size: '50%',
-            innerSize: '60%',
-            showInLegend: true,
-            dataLabels: {
-                enabled: false
-            }
-        }]
+        error: function (ex) {
+            alert('Failed to retrieve Delay Analysis data : ' + ex);
+        }
     });
+    //Highcharts.chart('container1', {
+    //    chart: {
+    //        type: 'pie',
+    //        backgroundColor: 'transparent',     
+    //        marginTop:-100,
+    //    },
+    //    legend: {
+    //        align: 'right',
+    //        verticalAlign: 'top',
+    //        layout: 'vertical',
+    //        x: -20,
+    //        y: 70,
+    //        color: '#eee'          
+    //    },
+    //    exporting: false,
+    //    credits: false,
+    //    title: {
+    //        text: 'Aircraft utilization',
+    //        margin: 10, 
+    //        style: {
+    //            color: '#eee'
+    //        },
+    //    },   
+    //    plotOptions: {
+    //        pie: {
+    //            //innerSize: 200,
+    //            shadow: false,
+    //            //depth: 100
+    //        }
+    //    },
+    //    tooltip: {
+    //        formatter: function () {
+    //            return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+    //        }
+    //    },
+    //    series: [{
+    //        name: 'Browsers',
+    //        data: [["Firefox", 6], ["MSIE", 4], ["Chrome", 7]],
+    //        size: '50%',
+    //        innerSize: '60%',
+    //        showInLegend: true,
+    //        dataLabels: {
+    //            enabled: false
+    //        }
+    //    }]
+    //});
 }
 
 
 // OTP section Charts
 
 function otp_overall_chart() {
+    $.ajax({
+        type: 'POST',
+        url: applicationUrl + "Dashboard/Get_Delay_analysis_chart",
+        dataType: 'json',
+        data: {
+            fromDate: function () { return '' },
+            toDate: function () { return '' },
+            ddValue: function () { return 'Current Day' },
+        },
+        success: function (res) {
 
-    $('#overalotp').highcharts({
-        colors: ['#33ee00', '#006622'],
-        chart: {
-           /* type: 'pie',*/
-            backgroundColor: 'transparent',
-            marginTop: -100,
-        },
-        title: {
-            text: '35%',
-            y: -40,
-            verticalAlign: 'middle',
-            style: {
-                color: '#eee'
-            },
-        },
-        subtitle: {
-            text: 'Over All OTP',
-            style: {
-                color: '#eee'
-            },
-        },
-        exporting: false,
-        credits: false,
-        plotOptions: {
-            pie: {
-                dataLabels: {
-                    enabled: false
-                },
-                borderWidth: 0
+            console.log("delay analysis res", res)
+
+            var delay_data = [], delay_ = [], delay_sum = 0
+            $.each(res, function (i, item) {
+                delay_.push(parseInt(item.DelayCount))
+                delay_data.push([item.GroupCode, parseInt(item.DelayCount)])
+            });
+
+            for (var i = 0; i < delay_.length; i++) {
+                delay_sum += delay_[i];
             }
+
+            console.log("delay_data", delay_data)
+
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'overalotp',
+                    marginTop: -100,
+                    type: 'pie',
+                    backgroundColor: 'transparent',
+                    events: {
+                        load: function () {
+                            var chart = this,
+                                x = chart.plotLeft + (chart.series[0].center[0]),
+                                y = chart.plotTop + (chart.series[0].center[1]),
+                                box;
+
+                            chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
+                                .css({
+                                    'text-align': 'center',
+                                    color: 'white',
+                                    fontSize: '16px'
+                                })
+                                .add();
+
+                            box = chart.pieCenter.getBBox();
+                            chart.pieCenter.attr({
+                                x: x - box.width / 2,
+                                y: y - box.height / 4
+                            });
+                        },
+                        redraw: function () {
+                            var chart = this,
+                                x = chart.plotLeft + (chart.series[0].center[0]),
+                                y = chart.plotTop + (chart.series[0].center[1]),
+                                box = chart.pieCenter.getBBox();
+                            chart.pieCenter.attr({
+                                x: x - box.width / 2,
+                                y: y - box.height / 4
+                            });
+                        }
+                    }
+                },
+                title: false,
+                exporting: false,
+                credits: false,
+                plotOptions: {
+                    pie: {
+                        innerSize: '60%'
+                    }
+                },
+                legend: false,
+                series: [{
+                    showInLegend: true,
+                    size: '34%',
+                    data: delay_data
+                }]
+            });
+
         },
-        series: [{
-            type: 'pie',
-            name: 'Browser share',
-            size: '50%',
-            innerSize: '75%',
-            data: [65, 35]
-        }]
+        error: function (ex) {
+            alert('Failed to retrieve Delay Analysis data : ' + ex);
+        }
     });
+    //$('#overalotp').highcharts({
+    //    colors: ['#33ee00', '#006622'],
+    //    chart: {
+    //       /* type: 'pie',*/
+    //        backgroundColor: 'transparent',
+    //        marginTop: -100,
+    //    },
+    //    title: {
+    //        text: '35%',
+    //        y: -40,
+    //        verticalAlign: 'middle',
+    //        style: {
+    //            color: '#eee'
+    //        },
+    //    },
+    //    subtitle: {
+    //        text: 'Over All OTP',
+    //        style: {
+    //            color: '#eee'
+    //        },
+    //    },
+    //    exporting: false,
+    //    credits: false,
+    //    plotOptions: {
+    //        pie: {
+    //            dataLabels: {
+    //                enabled: false
+    //            },
+    //            borderWidth: 0
+    //        }
+    //    },
+    //    series: [{
+    //        type: 'pie',
+    //        name: 'Browser share',
+    //        size: '50%',
+    //        innerSize: '75%',
+    //        data: [65, 35]
+    //    }]
+    //});
 }
 
 function otp_SectorType_chart() {
-    Highcharts.chart('otp_sector', {
-        chart: {
-            type: 'pie',
-            backgroundColor: 'transparent',
-            marginTop: -100,
+    $.ajax({
+        type: 'POST',
+        url: applicationUrl + "Dashboard/Get_Delay_analysis_chart",
+        dataType: 'json',
+        data: {
+            fromDate: function () { return '' },
+            toDate: function () { return '' },
+            ddValue: function () { return 'Current Day' },
         },
-        legend: {
-            //align: 'right',
-            //verticalAlign: 'top',
-            //layout: 'vertical',
-            x: -20,
-            y: 70,
-            color: '#eee'
-        },
-        exporting: false,
-        credits: false,
-        title: {
-            text: 'Sector Type OTP',
-            margin: 10,
-            style: {
-                color: '#eee'
-            },
-        },
-        plotOptions: {
-            pie: {
-                //innerSize: 200,
-                shadow: false,
-                //depth: 100
+        success: function (res) {
+
+            console.log("delay analysis res", res)
+
+            var delay_data = [], delay_ = [], delay_sum = 0
+            $.each(res, function (i, item) {
+                delay_.push(parseInt(item.DelayCount))
+                delay_data.push([item.GroupCode, parseInt(item.DelayCount)])
+            });
+
+            for (var i = 0; i < delay_.length; i++) {
+                delay_sum += delay_[i];
             }
+
+            console.log("delay_data", delay_data)
+
+            var chart = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'otp_sector',
+                    marginTop: -100,
+                    type: 'pie',
+                    backgroundColor: 'transparent',
+                    events: {
+                        load: function () {
+                            var chart = this,
+                                x = chart.plotLeft + (chart.series[0].center[0]),
+                                y = chart.plotTop + (chart.series[0].center[1]),
+                                box;
+
+                            chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
+                                .css({
+                                    'text-align': 'center',
+                                    color: 'white',
+                                    fontSize: '16px'
+                                })
+                                .add();
+
+                            box = chart.pieCenter.getBBox();
+                            chart.pieCenter.attr({
+                                x: x - box.width / 2,
+                                y: y - box.height / 4
+                            });
+                        },
+                        redraw: function () {
+                            var chart = this,
+                                x = chart.plotLeft + (chart.series[0].center[0]),
+                                y = chart.plotTop + (chart.series[0].center[1]),
+                                box = chart.pieCenter.getBBox();
+                            chart.pieCenter.attr({
+                                x: x - box.width / 2,
+                                y: y - box.height / 4
+                            });
+                        }
+                    }
+                },
+                title: false,
+                exporting: false,
+                credits: false,
+                plotOptions: {
+                    pie: {
+                        innerSize: '60%'
+                    }
+                },
+                legend: false,
+                series: [{
+                    showInLegend: true,
+                    size: '34%',
+                    data: delay_data
+                }]
+            });
+
         },
-        tooltip: {
-            formatter: function () {
-                return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
-            }
-        },
-        series: [{
-            name: 'Browsers',
-            data: [["Firefox", 6], ["MSIE", 4], ["Chrome", 7]],
-            size: '60%',
-            innerSize: '60%',
-            showInLegend: true,
-            dataLabels: {
-                enabled: false
-            }
-        }]
+        error: function (ex) {
+            alert('Failed to retrieve Delay Analysis data : ' + ex);
+        }
     });
+    //Highcharts.chart('otp_sector', {
+    //    chart: {
+    //        type: 'pie',
+    //        backgroundColor: 'transparent',
+    //        marginTop: -100,
+    //    },
+    //    legend: {
+    //        //align: 'right',
+    //        //verticalAlign: 'top',
+    //        //layout: 'vertical',
+    //        x: -20,
+    //        y: 70,
+    //        color: '#eee'
+    //    },
+    //    exporting: false,
+    //    credits: false,
+    //    title: {
+    //        text: 'Sector Type OTP',
+    //        margin: 10,
+    //        style: {
+    //            color: '#eee'
+    //        },
+    //    },
+    //    plotOptions: {
+    //        pie: {
+    //            //innerSize: 200,
+    //            shadow: false,
+    //            //depth: 100
+    //        }
+    //    },
+    //    tooltip: {
+    //        formatter: function () {
+    //            return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+    //        }
+    //    },
+    //    series: [{
+    //        name: 'Browsers',
+    //        data: [["Firefox", 6], ["MSIE", 4], ["Chrome", 7]],
+    //        size: '60%',
+    //        innerSize: '60%',
+    //        showInLegend: true,
+    //        dataLabels: {
+    //            enabled: false
+    //        }
+    //    }]
+    //});
 }
 
 function otp_metro_chart() {
