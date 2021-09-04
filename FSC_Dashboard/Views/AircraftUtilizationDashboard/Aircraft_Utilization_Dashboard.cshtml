@@ -1,8 +1,7 @@
-﻿
-<style>
+﻿<style>
     .chart-area {
         border: 1px dotted #545454;
-        height: 250px
+        height: 250px;
     }
 
     .dotted-border {
@@ -177,15 +176,23 @@
             <div class="nav-tabs-custom">
                 <!-- Tabs within a box -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#Load_Factor" data-toggle="tab">Load Factor</a></li>
-                   
+                    <li class="active"><a href="#aircraft_utilization" data-toggle="tab">Aircraft Utilization</a></li>
+                    <li><a href="#Fleet_wise_bifurcation" data-toggle="tab">Fleet wise bifurcation</a></li>
+                    <li><a href="#Aircraft_Tail_no_wise" data-toggle="tab">Aircraft Tail no wise</a></li>
+                 
                 </ul>
                 <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="Load_Factor" style="position: relative; height: 300px;">
-                        <h1>Load Factor</h1>
+                    <div class="chart tab-pane active" id="aircraft_utilization" style="position: relative; height: 300px;">
+                        <h1>Aircraft Utilization</h1>
                     </div>
-                    
+                    <div class="chart tab-pane" id="Fleet_wise_bifurcation" style="position: relative; height: 300px;">
+                        <h1>Fleet wise bifurcation</h1>
+                    </div>
+                    <div class="chart tab-pane" id="Aircraft_Tail_no_wise" style="position: relative; height: 300px;">
+                        <h1>Aircraft Tail no wise</h1>
+                    </div>
+
                 </div>
             </div>
             <!-- /.nav-tabs-custom -->
@@ -208,5 +215,4 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-
-<script src="~/Scripts/pages/Dashboard/LoadFactor_Dashboard.js"></script>
+<script src="~/Scripts/pages/Dashboard/AircraftUtilization_Dashboard.js"></script>

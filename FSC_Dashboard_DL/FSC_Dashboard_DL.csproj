@@ -42,6 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AU_DL.cs" />
+    <Compile Include="DisruptionDashboard_DL.cs" />
+    <Compile Include="PvA_DL.cs" />
+    <Compile Include="LoadFactorDashboard_DL.cs" />
+    <Compile Include="OTPDashboard_DL.cs" />
     <Compile Include="Dashboard_DL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />

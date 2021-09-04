@@ -124,8 +124,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BusinessHelper\BusinessHelper.cs" />
     <Compile Include="Constants\WebConstants.cs" />
+    <Compile Include="Controllers\AircraftUtilizationDashboardController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DisruptionDashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoadFactorDashboardController.cs" />
+    <Compile Include="Controllers\OTPDashboardController.cs" />
+    <Compile Include="Controllers\PlannedVsActualDashboardController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -7363,6 +7368,7 @@
     <Content Include="Content\theme\plugins\input-mask\phone-codes\phone-codes.json" />
     <Content Include="Content\theme\README.md" />
     <Content Include="Content\theme\yarn.lock" />
+    <None Include="Properties\PublishProfiles\FMS.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\charts\accessibility.js" />
     <Content Include="Scripts\charts\data.js" />
@@ -7380,6 +7386,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pages\Dashboard\AircraftUtilization_Dashboard.js" />
+    <Content Include="Scripts\pages\Dashboard\PlannedVsActualDashboard.js" />
+    <Content Include="Scripts\pages\Dashboard\Disruption_Dashboard.js" />
+    <Content Include="Scripts\pages\Dashboard\LoadFactor_Dashboard.js" />
+    <Content Include="Scripts\pages\Dashboard\OTP_Dashboard.js" />
     <Content Include="Scripts\pages\Dashboard\Dashboard.js" />
     <Content Include="Scripts\pages\login\login.js" />
     <Content Include="Web.config" />
@@ -7404,6 +7415,11 @@
     <Content Include="Views\Dashboard\Planned_Vs_Actual_Block_Hours_Dashboard.cshtml" />
     <Content Include="Views\Dashboard\Aircraft_Utilization_Dashboard.cshtml" />
     <Content Include="Views\Dashboard\Disruption_Dashboard.cshtml" />
+    <Content Include="Views\OTPDashboard\OTP_Dashboard.cshtml" />
+    <Content Include="Views\DisruptionDashboard\Disruption_Dashboard.cshtml" />
+    <Content Include="Views\LoadFactorDashboard\Load_Factor_Dashboard.cshtml" />
+    <Content Include="Views\AircraftUtilizationDashboard\Aircraft_Utilization_Dashboard.cshtml" />
+    <Content Include="Views\PlannedVsActualDashboard\Planned_Vs_Actual_Block_Hours_Dashboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

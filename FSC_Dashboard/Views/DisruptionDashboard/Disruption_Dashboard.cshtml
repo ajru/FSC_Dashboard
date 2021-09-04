@@ -2,7 +2,7 @@
 <style>
     .chart-area {
         border: 1px dotted #545454;
-        height: 250px
+        height: 250px;
     }
 
     .dotted-border {
@@ -177,15 +177,47 @@
             <div class="nav-tabs-custom">
                 <!-- Tabs within a box -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#Load_Factor" data-toggle="tab">Load Factor</a></li>
-                   
+                    <li class="active"><a href="#FlightTypewiseDelay" data-toggle="tab">FlightTypewiseDelay</a></li>
+                    <li><a href="#DelaywiseFlightCount" data-toggle="tab">DelaywiseFlightCount</a></li>
+                    <li><a href="#FlightwiseDelay" data-toggle="tab">FlightwiseDelay</a></li>
+                    <li><a href="#FlightTypewiseDiverted" data-toggle="tab">FlightTypewiseDiverted</a></li>
+                    <li><a href="#DivertedFlightDetails" data-toggle="tab">DivertedFlightDetails</a></li>
+                    <li><a href="#DivertedFlightwiseGrid" data-toggle="tab">DivertedFlightwiseGrid</a></li>
+                    <li><a href="#FlightTypewiseCancelled" data-toggle="tab">FlightTypewiseCancelled</a></li>
+                    <li><a href="#CancellationFlightDetails" data-toggle="tab">CancellationFlightDetails</a></li>
+                    <li><a href="#CancelledFlightwiseGrid" data-toggle="tab">CancelledFlightwiseGrid</a></li>
+                    
+               
                 </ul>
                 <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="Load_Factor" style="position: relative; height: 300px;">
-                        <h1>Load Factor</h1>
+                    <div class="chart tab-pane active" id="FlightTypewiseDelay" style="position: relative; height: 500px;">
+                        <h1>FlightTypewiseDelay</h1>
                     </div>
-                    
+                    <div class="chart tab-pane" id="DelaywiseFlightCount" style="position: relative; height: 500px;">
+                        <h1>DelaywiseFlightCount</h1>
+                    </div>
+                    <div class="chart tab-pane" id="FlightwiseDelay" style="position: relative; height: 500px;">
+                        <h1>FlightwiseDelay</h1>
+                    </div>
+                    <div class="chart tab-pane" id="FlightTypewiseDiverted" style="position: relative; height: 500px;">
+                        <h1>FlightTypewiseDiverted</h1>
+                    </div>
+                    <div class="chart tab-pane" id="DivertedFlightDetails" style="position: relative; height: 500px;">
+                        <h1>DivertedFlightDetails</h1>
+                    </div>
+                    <div class="chart tab-pane" id="DivertedFlightwiseGrid" style="position: relative; height: 500px;">
+                        <h1>DivertedFlightwiseGrid</h1>
+                    </div>
+                    <div class="chart tab-pane" id="FlightTypewiseCancelled" style="position: relative; height: 500px;">
+                        <h1>FlightTypewiseCancelled</h1>
+                    </div>
+                    <div class="chart tab-pane" id="CancellationFlightDetails" style="position: relative; height: 500px;">
+                        <h1>CancellationFlightDetails</h1>
+                    </div>
+                    <div class="chart tab-pane" id="CancelledFlightwiseGrid" style="position: relative; height: 500px;">
+                        <h1>CancelledFlightwiseGrid</h1>
+                    </div>
                 </div>
             </div>
             <!-- /.nav-tabs-custom -->
@@ -208,5 +240,4 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-
-<script src="~/Scripts/pages/Dashboard/LoadFactor_Dashboard.js"></script>
+<script src="~/Scripts/pages/Dashboard/Dashboard.js"></script>

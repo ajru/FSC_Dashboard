@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AUDashboard_BL.cs" />
+    <Compile Include="DisruptionDashboard_BL.cs" />
+    <Compile Include="PvADashboard_BL.cs" />
+    <Compile Include="LoadFactorDashboard_BL.cs" />
+    <Compile Include="OTPDashboard_BL.cs" />
     <Compile Include="Dashboard_BL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

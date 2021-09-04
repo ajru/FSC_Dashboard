@@ -2,7 +2,7 @@
 <style>
     .chart-area {
         border: 1px dotted #545454;
-        height: 250px
+        height: 500px;
     }
 
     .dotted-border {
@@ -177,13 +177,17 @@
             <div class="nav-tabs-custom">
                 <!-- Tabs within a box -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#Load_Factor" data-toggle="tab">Load Factor</a></li>
-                   
+                    <li class="active"><a href="#plannedVsActual" data-toggle="tab">Planned vs Actual</a></li>
+                    <li><a href="#daywiseblockhours" data-toggle="tab">Day wise block hours</a></li>
+                    
                 </ul>
                 <div class="tab-content no-padding">
                     <!-- Morris chart - Sales -->
-                    <div class="chart tab-pane active" id="Load_Factor" style="position: relative; height: 300px;">
-                        <h1>Load Factor</h1>
+                    <div class="chart tab-pane active" id="plannedVsActual" style="position: relative; height: 500px;">
+                        <h1>Planned vs Actual</h1>
+                    </div>
+                    <div class="chart tab-pane" id="daywiseblockhours" style="position: relative; height: 500px;">
+                        <h1>Day wise block hours</h1>
                     </div>
                     
                 </div>
@@ -193,10 +197,6 @@
         <!-- /.Left col -->
     </div>
 </section>
-
-
-
-
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-3d.js"></script>
@@ -208,5 +208,4 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-
-<script src="~/Scripts/pages/Dashboard/LoadFactor_Dashboard.js"></script>
+<script src="~/Scripts/pages/Dashboard/PlannedVsActualDashboard.js"></script>
