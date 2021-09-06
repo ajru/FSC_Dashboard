@@ -111,6 +111,50 @@ namespace FSC_Dashboard.BusinessHelper
         #endregion AircraftUtilization Dashboard
 
         #region Disruption Dashboard
+
+        public static List<FlightSection> Get_Flight_Type_Wise_Delay_chart(SearchCriteria search)
+        {
+            DisruptionDashboard_BL BL = new DisruptionDashboard_BL();
+            return BL.Get_Flight_Type_Wise_Delay_chart(search);
+        }
+
+        public static List<FlightSection> Get_Delay_Wise_Flight_Count_chart(SearchCriteria search)
+        {
+            DisruptionDashboard_BL BL = new DisruptionDashboard_BL();
+            return BL.Get_Delay_Wise_Flight_Count_chart(search);
+        }
+
+        public static List<FlightSection> Get_Flight_Wise_Delay_chart(SearchCriteria search)
+        {
+            DisruptionDashboard_BL BL = new DisruptionDashboard_BL();
+            return BL.Get_Flight_Wise_Delay_chart(search);
+        }
+
+        public static List<FlightSection> Get_Flight_Type_Wise_Diverted_chart(SearchCriteria search)
+        {
+            DisruptionDashboard_BL BL = new DisruptionDashboard_BL();
+            return BL.Get_Flight_Type_Wise_Diverted_chart(search);
+        }
+
+        public static List<FlightSection> Get_Diverted_Flight_Details_chart(SearchCriteria search)
+        {
+            DisruptionDashboard_BL BL = new DisruptionDashboard_BL();
+            return BL.Get_Diverted_Flight_Details_chart(search);
+        }
+
+        public static List<FlightSection> Get_Flight_Type_Wise_Cancelled_chart(SearchCriteria search)
+        {
+            DisruptionDashboard_BL BL = new DisruptionDashboard_BL();
+            return BL.Get_Flight_Type_Wise_Cancelled_chart(search);
+        }
+
+        public static List<FlightSection> Get_Cancellation_Flight_Details_chart(SearchCriteria search)
+        {
+            DisruptionDashboard_BL BL = new DisruptionDashboard_BL();
+            return BL.Get_Cancellation_Flight_Details_chart(search);
+        }
+
+
         #endregion Disruption Dashboard
 
     }
