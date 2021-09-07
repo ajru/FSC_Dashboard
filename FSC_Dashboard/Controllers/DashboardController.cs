@@ -124,6 +124,7 @@ namespace FSC_Dashboard.Controllers
         }
 
         #endregion
+
         #region Aircraft Utilization
         public JsonResult Get_Aircraft_Utilization_chart(string fromDate, string toDate, string ddValue)
         {
@@ -145,6 +146,7 @@ namespace FSC_Dashboard.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
         #region Delay Analysis
         public JsonResult Get_Delay_analysis_chart(string fromDate, string toDate, string ddValue)
         {
@@ -189,6 +191,8 @@ namespace FSC_Dashboard.Controllers
         }
 
         #endregion
+
+      
 
 
     }
