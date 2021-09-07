@@ -20,8 +20,6 @@ D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\bin\D
 D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\bin\Debug\FSC_Dashboard_Logger.pdb
 D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\bin\Debug\log4net.dll
 D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\bin\Debug\log4net.xml
-D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\obj\Debug\FSC_Dashboard_Logger.csprojAssemblyReference.cache
-D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\obj\Debug\FSC_Dashboard_Logger.csproj.CoreCompileInputs.cache
-D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\obj\Debug\FSC_Dashboard_Logger.csproj.CopyComplete
 D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\obj\Debug\FSC_Dashboard_Logger.dll
 D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\obj\Debug\FSC_Dashboard_Logger.pdb
+D:\Raymach\FSC Dashboard\FSC_Dashboard2\FSC_Dashboard\FSC_Dashboard_Logger\obj\Debug\FSC_Dashboard_Logger.csprojResolveAssemblyReference.cache

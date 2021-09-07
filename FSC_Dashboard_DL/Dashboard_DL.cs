@@ -113,12 +113,16 @@ namespace FSC_Dashboard_DL
             List<FlightSection> lstChartData = new List<FlightSection>();
             try
             {
-                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[FSC_Dashboard_disruption_chart]");
+                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[FSC_Dashboard_Disruption_Details]");
 
 
                 sqlHelper.AddParameter(cmd, "@FromDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
                 sqlHelper.AddParameter(cmd, "@ToDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ToDate);
                 sqlHelper.AddParameter(cmd, "@DateDropDownValue", SqlDbType.VarChar, 100, ParameterDirection.Input, search.DateDropDownValue);
+                sqlHelper.AddParameter(cmd, "@FlightType", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FlightType);
+                sqlHelper.AddParameter(cmd, "@DelayCode", SqlDbType.VarChar, 100, ParameterDirection.Input, search.DelayCode);
+                sqlHelper.AddParameter(cmd, "@Code", SqlDbType.VarChar, 100, ParameterDirection.Input, search.Code);
+                sqlHelper.AddParameter(cmd, "@Mod", SqlDbType.VarChar, 100, ParameterDirection.Input, search.Mod);
 
                 SqlDataReader Dr = sqlHelper.ExecuteReader(cmd);
                 if (Dr == null || Dr.HasRows == false)
@@ -132,10 +136,10 @@ namespace FSC_Dashboard_DL
                     {
                         obj_FlightSection = new FlightSection();
 
-                        obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
-                        obj_FlightSection.BaseName = Convert.ToString(Dr["Base"]);
+                        //obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
+                        obj_FlightSection.Status = Convert.ToString(Dr["Status"]);
                         obj_FlightSection.FlightType = Convert.ToString(Dr["FlightType"]);
-                        obj_FlightSection.Value = Convert.ToString(Dr["Value"]);
+                        obj_FlightSection.FlightCount = Convert.ToString(Dr["FlightCount"]);
                         //obj_Dashboardchart.BaseName = Convert.ToString(Dr["Base"]);
 
                         lstChartData.Add(obj_FlightSection);

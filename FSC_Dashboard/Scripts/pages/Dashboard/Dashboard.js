@@ -1309,44 +1309,48 @@ function disruption_chart() {
         data: {
             fromDate: function () { return '' },
             toDate: function () { return '' },
-            ddValue: function () { return 'Current Day' },
+            ddValue: function () { return 'Previous Quarter' },
+            FlightType: function () { return '' },
+            DelayCode: function () { return '' },
+            Code: function () { return '' },
+            Mod: function () { return 4 },
         },
         success: function (data) {
             console.log("load chart data.. one", data)
             var categories = [];
             var flags = [], l = data.length, i;
             for (i = 0; i < l; i++) {
-                if (flags[data[i].BaseName]) continue;
-                flags[data[i].BaseName] = true;
-                categories.push(data[i].BaseName);
+                if (flags[data[i].FlightType]) continue;
+                flags[data[i].FlightType] = true;
+                categories.push(data[i].FlightType);
             }
             //console.log("categories", categories)
 
-            let volChange = [], noChange = [], Change = []
+            let Cancelled = [], Diverted = [], Delay = []
 
             $.each(data, function (j, j_item) {
-                if (j_item.FlightType == 'A-001') {
-                    volChange.push(parseFloat(j_item.Value))
+                if (j_item.Status == 'Cancelled') {
+                    Cancelled.push(parseFloat(j_item.FlightCount))
                 }
-                if (j_item.FlightType == 'A-002') {
-                    noChange.push(parseFloat(j_item.Value))
+                if (j_item.Status == 'Diverted') {
+                    Diverted.push(parseFloat(j_item.FlightCount))
                 }
-                if (j_item.FlightType == 'A-003') {
-                    Change.push(parseFloat(j_item.Value))
+                if (j_item.Status == 'Delay') {
+                    Delay.push(parseFloat(j_item.FlightCount))
                 }
             });
             chart_data = [
                 {
-                    name: 'A-001',
-                    data: volChange
+                    name: 'Cancelled',
+                    data: Cancelled
                 },
                 {
-                    name: 'A-002',
-                    data: noChange
+                    name: 'Diverted',
+                    data: Diverted
                 },
                 {
-                    name: 'A-003',
-                    data: Change
+                    name: 'Delay',
+                    data: Delay
                 },
             ]
 
@@ -1370,12 +1374,17 @@ function disruption_chart() {
                                 data: {
                                     fromDate: function () { return '' },
                                     toDate: function () { return '' },
-                                    ddValue: function () { return 'Current Day' },
+                                    ddValue: function () { return 'Previous Quarter' },
+                                    FlightType: function () { return '' },
+                                    DelayCode: function () { return '' },
+                                    Code: function () { return '' },
+                                    Mod: function () { return 4 },
                                 },
                                 success: function (data) {
                                     var drilldata = [];
                                     $.each(data, function (i, item) {
-                                        drilldata.push({ name: item.FlightType, y: parseFloat(item.Value) })
+                                        //drilldata.push({ name: item.FlightType, y: parseFloat(item.FlightCount) })
+                                        drilldata.push({ name: item.Status, y: parseFloat(item.FlightCount) })
                                     });
                                     let chart_d = { name: e.point.name, data: drilldata }
                                     chart.hideLoading();

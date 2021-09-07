@@ -100,7 +100,7 @@ namespace FSC_Dashboard.Controllers
             return Json(json, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult Get_disruption_chart(string fromDate, string toDate, string ddValue)
+        public JsonResult Get_disruption_chart(string fromDate, string toDate, string ddValue, string FlightType, string DelayCode, string Code, string Mod)
         {
             List<FlightSection> LstFlightTypeAnalysis = new List<FlightSection>();
 
@@ -108,15 +108,19 @@ namespace FSC_Dashboard.Controllers
             search.FromDate = fromDate;
             search.ToDate = toDate;
             search.DateDropDownValue = ddValue;
+            search.FlightType = FlightType;
+            search.DelayCode = DelayCode;
+            search.Code = Code;
+            search.Mod = Mod;
 
             LstFlightTypeAnalysis = BusinessHelper.BusinessHelper.Get_disruption_chart(search);
             var json = from rs in LstFlightTypeAnalysis
                        select new
                        {
-                           Pid = rs.Pid.ToString(),
-                           BaseName = rs.BaseName.ToString(),
+                           
                            FlightType = rs.FlightType.ToString(),
-                           Value = rs.Value.ToString(),
+                           Status = rs.Status.ToString(),
+                           FlightCount = rs.FlightCount.ToString(),
 
                        };
 

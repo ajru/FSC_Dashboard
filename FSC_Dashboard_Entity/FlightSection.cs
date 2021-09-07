@@ -19,7 +19,9 @@ namespace FSC_Dashboard_Entity
         public string FlightType { get; set; }
         public string Value { get; set; }
         public string BaseName { get; set; }
-        
+        public string FlightCount { get; set; }
+        public string Status { get; set; }
+
 
 
 
