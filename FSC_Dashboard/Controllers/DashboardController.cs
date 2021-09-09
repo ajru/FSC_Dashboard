@@ -91,9 +91,9 @@ namespace FSC_Dashboard.Controllers
             var json = from rs in LstFlightTypeAnalysis
                        select new
                        {
-                           Pid = rs.Pid.ToString(),
+                           //Pid = rs.Pid.ToString(),
                            FlightType = rs.FlightType.ToString(),
-                           Value = rs.Value.ToString(),
+                           FlightCount = rs.FlightCount.ToString(),
 
                        };
 
@@ -130,7 +130,7 @@ namespace FSC_Dashboard.Controllers
         #endregion
 
         #region Aircraft Utilization
-        public JsonResult Get_Aircraft_Utilization_chart(string fromDate, string toDate, string ddValue)
+        public JsonResult Get_Aircraft_Utilization_chart(string fromDate, string toDate, string ddValue, string ACName, string GetDataFor)
         {
             List<FlightSection> LstAircraftUtilization = new List<FlightSection>();
 
@@ -138,13 +138,85 @@ namespace FSC_Dashboard.Controllers
             search.FromDate = fromDate;
             search.ToDate = toDate;
             search.DateDropDownValue = ddValue;
+            search.ACName = ACName;
+            search.GetDataFor = GetDataFor;
 
             LstAircraftUtilization = BusinessHelper.BusinessHelper.Get_Aircraft_Utilization_chart(search);
             var json = from rs in LstAircraftUtilization
                        select new
                        {
-                           FlightType = rs.FlightType.ToString(),
-                           Value = rs.Value.ToString(),
+                           AircraftFamily = rs.AircraftFamily.ToString(),
+                           BlockTimeInHrs = rs.BlockTimeInHrs.ToString(),
+                       };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_OverAllOTP_chart(string fromDate, string toDate, string ddValue, string Sector, string GetDataFor)
+        {
+            List<FlightSection> LstAircraftUtilization = new List<FlightSection>();
+
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+            search.Sector = Sector;
+            search.GetDataFor = GetDataFor;
+
+            LstAircraftUtilization = BusinessHelper.BusinessHelper.Get_OverAllOTP_chart(search);
+            var json = from rs in LstAircraftUtilization
+                       select new
+                       {
+                           Name = rs.Name.ToString(),
+                           OTPCount = rs.OTPCount.ToString(),
+                           //InternationalOTPPercentage = rs.InternationalOTPPercentage.ToString(),
+                       };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult Get_SectorTypeOTP_chart(string fromDate, string toDate, string ddValue, string Sector, string GetDataFor)
+        {
+            List<FlightSection> LstAircraftUtilization = new List<FlightSection>();
+
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+            search.Sector = Sector;
+            search.GetDataFor = GetDataFor;
+
+            LstAircraftUtilization = BusinessHelper.BusinessHelper.Get_SectorTypeOTP_chart(search);
+            var json = from rs in LstAircraftUtilization
+                       select new
+                       {
+                           Sector = rs.Sector.ToString(),
+                           FromcityCode = rs.FromcityCode.ToString(),
+                           ToCityCode = rs.ToCityCode.ToString(),
+                           OTPPercentage = rs.OTPPercentage.ToString(),
+                           //InternationalOTPPercentage = rs.InternationalOTPPercentage.ToString(),
+                       };
+
+            return Json(json, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult Get_MetroWiseOTP_chart(string fromDate, string toDate, string ddValue, string Sector, string GetDataFor)
+        {
+            List<FlightSection> LstAircraftUtilization = new List<FlightSection>();
+
+            SearchCriteria search = new SearchCriteria();
+            search.FromDate = fromDate;
+            search.ToDate = toDate;
+            search.DateDropDownValue = ddValue;
+            search.Sector = Sector;
+            search.GetDataFor = GetDataFor;
+
+            LstAircraftUtilization = BusinessHelper.BusinessHelper.Get_MetroWiseOTP_chart(search);
+            var json = from rs in LstAircraftUtilization
+                       select new
+                       {
+                           MetroCity = rs.MetroCity.ToString(),
+                           OTPPercentage = rs.OTPPercentage.ToString(),
+                           //InternationalOTPPercentage = rs.InternationalOTPPercentage.ToString(),
                        };
 
             return Json(json, JsonRequestBehavior.AllowGet);

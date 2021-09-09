@@ -31,6 +31,22 @@ namespace FSC_Dashboard.BusinessHelper
             Dashboard_BL BL = new Dashboard_BL();
             return BL.Get_Aircraft_Utilization_chart(search);
         }
+        public static List<FlightSection> Get_OverAllOTP_chart(SearchCriteria search)
+        {
+            Dashboard_BL BL = new Dashboard_BL();
+            return BL.Get_OverAllOTP_chart(search);
+        }
+        public static List<FlightSection> Get_SectorTypeOTP_chart(SearchCriteria search)
+        {
+            Dashboard_BL BL = new Dashboard_BL();
+            return BL.Get_SectorTypeOTP_chart(search);
+        }
+        public static List<FlightSection> Get_MetroWiseOTP_chart(SearchCriteria search)
+        {
+            Dashboard_BL BL = new Dashboard_BL();
+            return BL.Get_MetroWiseOTP_chart(search);
+        }
+
         public static List<DelayAnalysis> Get_Delay_analysis_chart(SearchCriteria search)
         {
             Dashboard_BL BL = new Dashboard_BL();

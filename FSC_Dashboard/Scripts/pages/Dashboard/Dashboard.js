@@ -460,9 +460,9 @@ function flight_type_analysis_chart() {
         url: applicationUrl + "Dashboard/Get_flight_type_analysis_chart",
         dataType: 'json',
         data: {
-            fromDate: function () { return '' },
-            toDate: function () { return '' },
-            ddValue: function () { return 'Current Day' },
+            fromDate: function () { return '2021-01-02' },
+            toDate: function () { return '2021-01-02' },
+            ddValue: function () { return 'Custom Date Range' },
         },
         success: function (data) {
 
@@ -471,7 +471,7 @@ function flight_type_analysis_chart() {
             var data1 = []
             //data1 = data
             $.each(data, function (i, item) {
-                data1.push({ 'name': item.FlightType, 'y': parseFloat(item.Value), 'drilldown': item.FlightType })
+                data1.push({ 'name': item.FlightType, 'y': parseFloat(item.FlightCount), 'drilldown': item.FlightType })
             });
 
             //console.log("chart data1..", data1)
@@ -611,12 +611,15 @@ function flight_type_analysis_chart() {
 function flight_AircraftUtilization_chart() {
     $.ajax({
         type: 'POST',
-        url: applicationUrl + "Dashboard/Get_Delay_analysis_chart",
+        url: applicationUrl + "Dashboard/Get_Aircraft_Utilization_chart",
         dataType: 'json',
         data: {
             fromDate: function () { return '' },
             toDate: function () { return '' },
             ddValue: function () { return 'Current Day' },
+            GetDataFor: function () { return 'F' },
+            ACName: function () { return '' },
+            
         },
         success: function (res) {
 
@@ -624,8 +627,8 @@ function flight_AircraftUtilization_chart() {
 
             var delay_data = [], delay_ = [], delay_sum = 0
             $.each(res, function (i, item) {
-                delay_.push(parseInt(item.DelayCount))
-                delay_data.push([item.GroupCode, parseInt(item.DelayCount)])
+                delay_.push(parseInt(item.BlockTimeInHrs))
+                delay_data.push([item.AircraftFamily, parseInt(item.BlockTimeInHrs)])
             });
 
             for (var i = 0; i < delay_.length; i++) {
@@ -640,51 +643,74 @@ function flight_AircraftUtilization_chart() {
                     marginTop: -100,
                     type: 'pie',
                     backgroundColor: 'transparent',
-                    events: {
-                        load: function () {
-                            var chart = this,
-                                x = chart.plotLeft + (chart.series[0].center[0]),
-                                y = chart.plotTop + (chart.series[0].center[1]),
-                                box;
+                    //events: {
+                    //    load: function () {
+                    //        var chart = this,
+                    //            x = chart.plotLeft + (chart.series[0].center[0]),
+                    //            y = chart.plotTop + (chart.series[0].center[1]),
+                    //            box;
 
-                            chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
-                                .css({
-                                    'text-align': 'center',
-                                    color: 'white',
-                                    fontSize: '16px'
-                                })
-                                .add();
+                    //        chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
+                    //            .css({
+                    //                'text-align': 'center',
+                    //                color: 'white',
+                    //                fontSize: '16px'
+                    //            })
+                    //            .add();
 
-                            box = chart.pieCenter.getBBox();
-                            chart.pieCenter.attr({
-                                x: x - box.width / 2,
-                                y: y - box.height / 4
-                            });
-                        },
-                        redraw: function () {
-                            var chart = this,
-                                x = chart.plotLeft + (chart.series[0].center[0]),
-                                y = chart.plotTop + (chart.series[0].center[1]),
-                                box = chart.pieCenter.getBBox();
-                            chart.pieCenter.attr({
-                                x: x - box.width / 2,
-                                y: y - box.height / 4
-                            });
-                        }
-                    }
+                    //        box = chart.pieCenter.getBBox();
+                    //        chart.pieCenter.attr({
+                    //            x: x - box.width / 2,
+                    //            y: y - box.height / 4
+                    //        });
+                    //    },
+                    //    redraw: function () {
+                    //        var chart = this,
+                    //            x = chart.plotLeft + (chart.series[0].center[0]),
+                    //            y = chart.plotTop + (chart.series[0].center[1]),
+                    //            box = chart.pieCenter.getBBox();
+                    //        chart.pieCenter.attr({
+                    //            x: x - box.width / 2,
+                    //            y: y - box.height / 4
+                    //        });
+                    //    }
+                    //}
                 },
-                title: false,
+                title: {
+                            text: 'Aircraft utilization',
+                            margin: 10, 
+                            style: {
+                                color: '#eee'
+                            },
+                        }, 
                 exporting: false,
                 credits: false,
                 plotOptions: {
                     pie: {
-                        innerSize: '60%'
+                        innerSize: '60%',
+                        shadow: false,
                     }
                 },
-                legend: false,
+                tooltip: {
+                            formatter: function () {
+                                return '<b>' + this.point.name + '</b>: ' + this.y + ' %';
+                            }
+                        },
+                legend: {
+                            align: 'right',
+                            verticalAlign: 'top',
+                            layout: 'vertical',
+                            x: -20,
+                            y: 70,
+                            color: '#eee'          
+                        },
                 series: [{
                     showInLegend: true,
-                    size: '34%',
+                    size: '50%',
+                    innerSize: '60%',
+                    dataLabels: {
+                                    enabled: false
+                                },
                     data: delay_data
                 }]
             });
@@ -748,12 +774,14 @@ function flight_AircraftUtilization_chart() {
 function otp_overall_chart() {
     $.ajax({
         type: 'POST',
-        url: applicationUrl + "Dashboard/Get_Delay_analysis_chart",
+        url: applicationUrl + "Dashboard/Get_OverAllOTP_chart",
         dataType: 'json',
         data: {
             fromDate: function () { return '' },
             toDate: function () { return '' },
-            ddValue: function () { return 'Current Day' },
+            ddValue: function () { return 'Previous Quarter' },
+            GetDataFor: function () { return 'Overall OTP' },
+            Sector: function () { return '' },
         },
         success: function (res) {
 
@@ -761,8 +789,8 @@ function otp_overall_chart() {
 
             var delay_data = [], delay_ = [], delay_sum = 0
             $.each(res, function (i, item) {
-                delay_.push(parseInt(item.DelayCount))
-                delay_data.push([item.GroupCode, parseInt(item.DelayCount)])
+                delay_.push(parseInt(item.OTPCount))
+                delay_data.push([item.Name, parseInt(item.OTPCount)])
             });
 
             for (var i = 0; i < delay_.length; i++) {
@@ -772,6 +800,7 @@ function otp_overall_chart() {
             console.log("delay_data", delay_data)
 
             var chart = new Highcharts.Chart({
+                colors: ['#33ee00', '#006622'],
                 chart: {
                     renderTo: 'overalotp',
                     marginTop: -100,
@@ -784,7 +813,7 @@ function otp_overall_chart() {
                                 y = chart.plotTop + (chart.series[0].center[1]),
                                 box;
 
-                            chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
+                            chart.pieCenter = chart.renderer.text(delay_sum + '%', x, y, true)
                                 .css({
                                     'text-align': 'center',
                                     color: 'white',
@@ -810,18 +839,33 @@ function otp_overall_chart() {
                         }
                     }
                 },
-                title: false,
+                title: {
+                            text: 'Over All OTP',
+                            margin: 10,
+                            //y: -40,
+                            //verticalAlign: 'middle',
+                            style: {
+                                color: '#eee'
+                            },
+                        },
+                        
                 exporting: false,
                 credits: false,
                 plotOptions: {
                     pie: {
-                        innerSize: '60%'
+                        //innerSize: '60%',
+                        dataLabels: {
+                           enabled: false
+                           },
+                           borderWidth: 0
                     }
                 },
                 legend: false,
                 series: [{
+                    type: 'pie',
                     showInLegend: true,
-                    size: '34%',
+                    size: '50%',
+                    innerSize: '75%',
                     data: delay_data
                 }]
             });
@@ -875,12 +919,14 @@ function otp_overall_chart() {
 function otp_SectorType_chart() {
     $.ajax({
         type: 'POST',
-        url: applicationUrl + "Dashboard/Get_Delay_analysis_chart",
+        url: applicationUrl + "Dashboard/Get_SectorTypeOTP_chart",
         dataType: 'json',
         data: {
             fromDate: function () { return '' },
             toDate: function () { return '' },
-            ddValue: function () { return 'Current Day' },
+            ddValue: function () { return 'Previous Quarter' },
+            GetDataFor: function () { return 'Sector Wise Percentage' },
+            Sector: function () { return '' },
         },
         success: function (res) {
 
@@ -888,8 +934,8 @@ function otp_SectorType_chart() {
 
             var delay_data = [], delay_ = [], delay_sum = 0
             $.each(res, function (i, item) {
-                delay_.push(parseInt(item.DelayCount))
-                delay_data.push([item.GroupCode, parseInt(item.DelayCount)])
+                delay_.push(parseInt(item.OTPPercentage))
+                delay_data.push([item.Sector, parseInt(item.OTPPercentage)])
             });
 
             for (var i = 0; i < delay_.length; i++) {
@@ -904,52 +950,71 @@ function otp_SectorType_chart() {
                     marginTop: -100,
                     type: 'pie',
                     backgroundColor: 'transparent',
-                    events: {
-                        load: function () {
-                            var chart = this,
-                                x = chart.plotLeft + (chart.series[0].center[0]),
-                                y = chart.plotTop + (chart.series[0].center[1]),
-                                box;
-
-                            chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
-                                .css({
-                                    'text-align': 'center',
-                                    color: 'white',
-                                    fontSize: '16px'
-                                })
-                                .add();
-
-                            box = chart.pieCenter.getBBox();
-                            chart.pieCenter.attr({
-                                x: x - box.width / 2,
-                                y: y - box.height / 4
-                            });
-                        },
-                        redraw: function () {
-                            var chart = this,
-                                x = chart.plotLeft + (chart.series[0].center[0]),
-                                y = chart.plotTop + (chart.series[0].center[1]),
-                                box = chart.pieCenter.getBBox();
-                            chart.pieCenter.attr({
-                                x: x - box.width / 2,
-                                y: y - box.height / 4
-                            });
-                        }
-                    }
+                        //events: {
+                    //    load: function () {
+                    //        var chart = this,
+                    //            x = chart.plotLeft + (chart.series[0].center[0]),
+                    //            y = chart.plotTop + (chart.series[0].center[1]),
+                    //            box;
+                    //        chart.pieCenter = chart.renderer.text('Delay<br>' + delay_sum, x, y, true)
+                    //            .css({
+                    //                'text-align': 'center',
+                    //                color: 'white',
+                    //                fontSize: '16px'
+                    //            })
+                    //            .add();
+                    //        box = chart.pieCenter.getBBox();
+                    //        chart.pieCenter.attr({
+                    //            x: x - box.width / 2,
+                    //            y: y - box.height / 4
+                    //        });
+                    //    },
+                    //    redraw: function () {
+                    //        var chart = this,
+                    //            x = chart.plotLeft + (chart.series[0].center[0]),
+                    //            y = chart.plotTop + (chart.series[0].center[1]),
+                    //            box = chart.pieCenter.getBBox();
+                    //        chart.pieCenter.attr({
+                    //            x: x - box.width / 2,
+                    //            y: y - box.height / 4
+                    //        });
+                    //    }
+                    //}
                 },
-                title: false,
+                title: {
+                            text: 'Sector Type OTP',
+                            margin: 10,
+                            style: {
+                                color: '#eee'
+                            },
+                        },
                 exporting: false,
                 credits: false,
                 plotOptions: {
                     pie: {
-                        innerSize: '60%'
+                        shadow: false,
                     }
                 },
-                legend: false,
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    x: 0,
+                    color: '#eee',
+                    y: 0
+                },
+                //legend: {
+                //            x: -20,
+                //            y: 70,
+                //            color: '#eee'
+                //        },
                 series: [{
                     showInLegend: true,
-                    size: '34%',
-                    data: delay_data
+                    size: '60%',
+                            innerSize: '60%',
+                    data: delay_data,
+                    dataLabels: {
+                                    enabled: true
+                                }
                 }]
             });
 
@@ -1011,12 +1076,14 @@ function otp_metro_chart() {
     //$(".overlay").show();
     $.ajax({
         type: 'POST',
-        url: applicationUrl + "Dashboard/Get_flight_type_analysis_chart",
+        url: applicationUrl + "Dashboard/Get_MetroWiseOTP_chart",
         dataType: 'json',
         data: {
             fromDate: function () { return '' },
             toDate: function () { return '' },
-            ddValue: function () { return 'Current Day' },
+            ddValue: function () { return 'Previous Quarter' },
+            GetDataFor: function () { return 'Metro Wise Percentage' },
+            Sector: function () { return '' },
         },
         success: function (data) {
 
@@ -1025,7 +1092,7 @@ function otp_metro_chart() {
             var data1 = []
             //data1 = data
             $.each(data, function (i, item) {
-                data1.push({ 'name': item.FlightType, 'y': parseFloat(item.Value), 'drilldown': item.FlightType })
+                data1.push({ 'name': item.MetroCity, 'y': parseFloat(item.OTPPercentage), 'drilldown': item.MetroCity })
             });
 
             console.log("chart data1..", data1)
@@ -1634,12 +1701,13 @@ function plannedVsActual_chart() {
             $.each(res, function (i, item) {
 
                 if (count_v < 10) {
-                    chart_data.push({ name: item.FlightDate.toString(), y: Math.floor(parseInt(item.PlannedFlightTime) / 60) })
-                    chart_data.push({ name: item.FlightDate.toString(), y: Math.floor(parseInt(item.ActualFlightTime) / 60) })
+                    chart_data.push({ name: item.Time.toString(), y: Math.floor(parseInt(item.PlannedFlightTime) / 60) })
+                    chart_data.push({ name: item.Time.toString(), y: Math.floor(parseInt(item.ActualFlightTime) / 60) })
 
-                    planned.push(-Math.floor(parseInt(item.PlannedFlightTime) / 60))
+                    planned.push(Math.floor(parseInt(item.PlannedFlightTime) / 60))
+                    //planned.push(-Math.floor(parseInt(item.PlannedFlightTime) / 60))
                     actual.push(Math.floor(parseInt(item.ActualFlightTime) / 60))
-                    categories.push([item.FlightDate.toString()])
+                    categories.push([item.Time.toString()])
                 }
                 count_v++;
                
@@ -1706,16 +1774,13 @@ function plannedVsActual_chart() {
             //    legend: {
             //        enabled: false
             //    },
-
             //    tooltip: {
             //        pointFormat: '<b>{point.y:,.2f}</b> '
             //    },
-
             //    series: [{
             //        upColor: Highcharts.getOptions().colors[2],
             //        color: 'white',
             //        data: chart_data,
-
             //        //    [{
             //        //    name: 'Start',
             //        //    y: 120000
@@ -1748,11 +1813,6 @@ function plannedVsActual_chart() {
             //        pointPadding: 0
             //    }]
             //});
-
-
-
-
-
 
         },
         error: function (ex) {

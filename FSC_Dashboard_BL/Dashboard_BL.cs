@@ -34,6 +34,20 @@ namespace FSC_Dashboard_BL
         {
             return DL.Get_Aircraft_Utilization_chart(search);
         }
+        public List<FlightSection> Get_OverAllOTP_chart(SearchCriteria search)
+        {
+            return DL.Get_OverAllOTP_chart(search);
+        }
+        public List<FlightSection> Get_SectorTypeOTP_chart(SearchCriteria search)
+        {
+            return DL.Get_SectorTypeOTP_chart(search);
+        }
+        public List<FlightSection> Get_MetroWiseOTP_chart(SearchCriteria search)
+        {
+            return DL.Get_MetroWiseOTP_chart(search);
+        }
+
+
         public List<DelayAnalysis> Get_Delay_analysis_chart(SearchCriteria search)
         {
             return DL.Get_Delay_analysis_chart(search);

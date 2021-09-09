@@ -21,9 +21,19 @@ namespace FSC_Dashboard_Entity
         public string BaseName { get; set; }
         public string FlightCount { get; set; }
         public string Status { get; set; }
-
-
-
+        public string AircraftFamily { get; set; }
+        public string BlockTimeInHrs { get; set; }
+        public string Sector { get; set; }
+        public string OverallOTPPercentage { get; set; }
+        public string DomesticOTPPercentage { get; set; }
+        public string InternationalOTPPercentage { get; set; }
+        public string Name { get; set; }
+        public string OTPCount { get; set; }
+        public string FromcityCode { get; set; }
+        public string ToCityCode { get; set; }
+        public string OTPPercentage { get; set; }
+        public string MetroCity { get; set; }
+        
 
 
 

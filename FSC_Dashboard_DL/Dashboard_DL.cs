@@ -35,7 +35,7 @@ namespace FSC_Dashboard_DL
         {
             try
             {
-                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[FSC_Dashboard_Total_Domestic_international_flightCount1]");
+                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[FSC_Dashboard_Total_Domestic_international_flightCount]");
 
                 sqlHelper.AddParameter(cmd, "@FromDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
                 sqlHelper.AddParameter(cmd, "@ToDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ToDate);
@@ -73,7 +73,7 @@ namespace FSC_Dashboard_DL
             List<FlightSection> lstChartData = new List<FlightSection>();
             try
             {
-                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[FSC_Dashboard_Flight_Type_Analysis_Chart]");
+                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[FSC_Dashboard_Total_Flighttype]");
 
 
                 sqlHelper.AddParameter(cmd, "@FromDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
@@ -92,9 +92,9 @@ namespace FSC_Dashboard_DL
                     {
                         obj_FlightSection = new FlightSection();
 
-                        obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
+                        //obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
                         obj_FlightSection.FlightType = Convert.ToString(Dr["FlightType"]);
-                        obj_FlightSection.Value = Convert.ToString(Dr["Value"]);
+                        obj_FlightSection.FlightCount = Convert.ToString(Dr["FlightCount"]);
                         //obj_Dashboardchart.BaseName = Convert.ToString(Dr["Base"]);
 
                         lstChartData.Add(obj_FlightSection);
@@ -158,12 +158,14 @@ namespace FSC_Dashboard_DL
             List<FlightSection> lstChartData = new List<FlightSection>();
             try
             {
-                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[FSC_Dashboard_Aircraft_Utilization_chart]");
+                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[ACU_AircraftUtilization]");
 
 
-                sqlHelper.AddParameter(cmd, "@FromDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
-                sqlHelper.AddParameter(cmd, "@ToDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ToDate);
+                sqlHelper.AddParameter(cmd, "@FDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
+                sqlHelper.AddParameter(cmd, "@TDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ToDate);
                 sqlHelper.AddParameter(cmd, "@DateDropDownValue", SqlDbType.VarChar, 100, ParameterDirection.Input, search.DateDropDownValue);
+                sqlHelper.AddParameter(cmd, "@GetDataFor", SqlDbType.VarChar, 100, ParameterDirection.Input, search.GetDataFor);
+                sqlHelper.AddParameter(cmd, "@ACName", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ACName);
 
                 SqlDataReader Dr = sqlHelper.ExecuteReader(cmd);
                 if (Dr == null || Dr.HasRows == false)
@@ -177,11 +179,10 @@ namespace FSC_Dashboard_DL
                     {
                         obj_FlightSection = new FlightSection();
 
-                        obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
-                        obj_FlightSection.BaseName = Convert.ToString(Dr["Base"]);
-                        obj_FlightSection.FlightType = Convert.ToString(Dr["FlightType"]);
-                        obj_FlightSection.Value = Convert.ToString(Dr["Value"]);
-                        //obj_Dashboardchart.BaseName = Convert.ToString(Dr["Base"]);
+                        //obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
+                        obj_FlightSection.AircraftFamily = Convert.ToString(Dr["AircraftFamily"]);
+                        obj_FlightSection.BlockTimeInHrs = Convert.ToString(Dr["BlockTimeInHrs"]);
+
 
                         lstChartData.Add(obj_FlightSection);
                     }
@@ -193,7 +194,132 @@ namespace FSC_Dashboard_DL
             }
             return lstChartData;
         }
+        public List<FlightSection> Get_OverAllOTP_chart(SearchCriteria search)
+        {
+            List<FlightSection> lstChartData = new List<FlightSection>();
+            try
+            {
+                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[OTP_OnTimePerformancePercentage]");
 
+
+                sqlHelper.AddParameter(cmd, "@FDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
+                sqlHelper.AddParameter(cmd, "@TDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ToDate);
+                sqlHelper.AddParameter(cmd, "@DateDropDownValue", SqlDbType.VarChar, 100, ParameterDirection.Input, search.DateDropDownValue);
+                sqlHelper.AddParameter(cmd, "@GetDataFor", SqlDbType.VarChar, 100, ParameterDirection.Input, search.GetDataFor);
+                sqlHelper.AddParameter(cmd, "@Sector", SqlDbType.VarChar, 100, ParameterDirection.Input, search.Sector);
+
+                SqlDataReader Dr = sqlHelper.ExecuteReader(cmd);
+                if (Dr == null || Dr.HasRows == false)
+                {
+                    //logEx.LogExceptionToDB(null, "No records returned from SP-H_ValidateUser", "Login - ValidateUser", 2);
+                }
+
+                if (Dr.HasRows)
+                {
+                    while (Dr.Read())
+                    {
+                        obj_FlightSection = new FlightSection();
+
+                        //obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
+                        obj_FlightSection.Name = Convert.ToString(Dr["Name"]);
+                        obj_FlightSection.OTPCount = Convert.ToString(Dr["OTPCount"]);
+                        //obj_FlightSection.InternationalOTPPercentage = Convert.ToString(Dr["InternationalOTPPercentage"]);
+
+
+                        lstChartData.Add(obj_FlightSection);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+            return lstChartData;
+        }
+        public List<FlightSection> Get_SectorTypeOTP_chart(SearchCriteria search)
+        {
+            List<FlightSection> lstChartData = new List<FlightSection>();
+            try
+            {
+                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[OTP_OnTimePerformancePercentage1]");
+
+
+                sqlHelper.AddParameter(cmd, "@FDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
+                sqlHelper.AddParameter(cmd, "@TDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ToDate);
+                sqlHelper.AddParameter(cmd, "@DateDropDownValue", SqlDbType.VarChar, 100, ParameterDirection.Input, search.DateDropDownValue);
+                sqlHelper.AddParameter(cmd, "@GetDataFor", SqlDbType.VarChar, 100, ParameterDirection.Input, search.GetDataFor);
+                sqlHelper.AddParameter(cmd, "@Sector", SqlDbType.VarChar, 100, ParameterDirection.Input, search.Sector);
+
+                SqlDataReader Dr = sqlHelper.ExecuteReader(cmd);
+                if (Dr == null || Dr.HasRows == false)
+                {
+                    //logEx.LogExceptionToDB(null, "No records returned from SP-H_ValidateUser", "Login - ValidateUser", 2);
+                }
+
+                if (Dr.HasRows)
+                {
+                    while (Dr.Read())
+                    {
+                        obj_FlightSection = new FlightSection();
+
+                        //obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
+                        obj_FlightSection.Sector = Convert.ToString(Dr["Sector"]);
+                        obj_FlightSection.FromcityCode = Convert.ToString(Dr["FromcityCode"]);
+                        obj_FlightSection.ToCityCode = Convert.ToString(Dr["ToCityCode"]);
+                        obj_FlightSection.OTPPercentage = Convert.ToString(Dr["OTPPercentage"]);
+
+                        lstChartData.Add(obj_FlightSection);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+            return lstChartData;
+        }
+        public List<FlightSection> Get_MetroWiseOTP_chart(SearchCriteria search)
+        {
+            List<FlightSection> lstChartData = new List<FlightSection>();
+            try
+            {
+                SqlCommand cmd = sqlHelper.GetStoreProcedureCommand("[fsc].[OTP_OnTimePerformancePercentage]");
+
+
+                sqlHelper.AddParameter(cmd, "@FDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.FromDate);
+                sqlHelper.AddParameter(cmd, "@TDate", SqlDbType.VarChar, 100, ParameterDirection.Input, search.ToDate);
+                sqlHelper.AddParameter(cmd, "@DateDropDownValue", SqlDbType.VarChar, 100, ParameterDirection.Input, search.DateDropDownValue);
+                sqlHelper.AddParameter(cmd, "@GetDataFor", SqlDbType.VarChar, 100, ParameterDirection.Input, search.GetDataFor);
+                sqlHelper.AddParameter(cmd, "@Sector", SqlDbType.VarChar, 100, ParameterDirection.Input, search.Sector);
+
+                SqlDataReader Dr = sqlHelper.ExecuteReader(cmd);
+                if (Dr == null || Dr.HasRows == false)
+                {
+                    //logEx.LogExceptionToDB(null, "No records returned from SP-H_ValidateUser", "Login - ValidateUser", 2);
+                }
+
+                if (Dr.HasRows)
+                {
+                    while (Dr.Read())
+                    {
+                        obj_FlightSection = new FlightSection();
+
+                        //obj_FlightSection.Pid = Convert.ToInt32(Dr["Pid"]);
+                       
+                        obj_FlightSection.MetroCity = Convert.ToString(Dr["MetroCity"]);
+                        obj_FlightSection.OTPPercentage = Convert.ToString(Dr["OTPPercentage"]);
+
+                        lstChartData.Add(obj_FlightSection);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+            return lstChartData;
+        }
+        
         #endregion
 
         #region Delay Analysis

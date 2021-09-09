@@ -16,6 +16,12 @@ namespace FSC_Dashboard_Entity
         public string Code { get; set; }
         public string DelayCode { get; set; }
         public string Mod { get; set; }
+        public string GetDataFor { get; set; }
+        public string ACName { get; set; }
+
+        public string Sector { get; set; }
+
+
 
     }
 }
